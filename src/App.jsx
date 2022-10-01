@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Coins from "./components/Coins";
+import Navbar from "./components/Navbar";
 
 function App() {
   const URL =
@@ -21,7 +22,12 @@ function App() {
       });
   }, []);
 
-  return <Coins coins={coins} />;
+  return (
+    <>
+      <Navbar />
+      <Coins coins={coins} />
+    </>
+  );
 }
 
 export default App;
