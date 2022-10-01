@@ -1,6 +1,6 @@
 import React from "react";
 import { FaCoins } from "react-icons/fa";
-import "../styles/navbar.css";
+import "../styles/Navbar.css";
 
 const Navbar = () => {
   return (
