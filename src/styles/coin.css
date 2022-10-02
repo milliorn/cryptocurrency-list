@@ -1,13 +1,3 @@
-
-
-.rank-btn {
-  background-color: #6900ff;
-  border: 1px solid #6900ff;
-  border-radius: 8px;
-  box-shadow: 0 0 8px #6900ff;
-  padding: 0.2rem;
-}
-
 .stats {
   display: grid;
   grid-gap: 2rem;

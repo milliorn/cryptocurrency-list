@@ -15,6 +15,8 @@ const styles = {
   coinPrice: "items-center flex justify-center",
   infoParagrah: "pr-4",
   rank: "my-2 mx-0",
+  rankBtn:
+    "bg-violet-700 border-2	border-violet-700 border-solid	rounded-lg	shadow-md	shadow-violet-700 p-1",
 };
 
 const Coin = () => {
@@ -42,7 +44,9 @@ const Coin = () => {
         </div>
         <div className={styles.content}>
           <div className={styles.rank}>
-            <span className="rank-btn">Rank # {coin.market_cap_rank}</span>
+            <span className={styles.rankBtn}>
+              Rank # {coin.market_cap_rank}
+            </span>
           </div>
           <div className={styles.info}>
             <div className={styles.coinHeading}>
