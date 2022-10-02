@@ -15,13 +15,13 @@ const styles = {
   rank: "my-2 mx-0",
   rankBtn:
     "bg-violet-700 border-2	border-violet-700 border-solid	rounded-lg	shadow-md	shadow-violet-700 p-1",
-  stats: "grid gap-8	grid grid-cols-2 w-full",
+  stats: "sm:grid gap-8	sm:grid-cols-2 w-full",
   row: "flex justify-between my-2 mx-0 pb-2 border-b-2	border-solid	border-zinc-500",
   statsRowParagraph: "text-neutral-300",
   table: "table-auto my-2 mx-0",
-  thTd: "p-2 text-center border-x-2	border-solid	border-zinc-700",
+  thTd: "p-2 text-center border-x-2	border-solid	border-zinc-700 text-xs",
   tableRow: "bg-zinc-600",
-  h1: "text-5xl",
+  h1: "text-3xl",
 };
 
 const Coin = () => {
