@@ -1,7 +1,3 @@
-.stats .row {
-  border-bottom: 1px solid gray;
-}
-
 .stats .row p:first-child {
   color: #d3d3d3;
 }

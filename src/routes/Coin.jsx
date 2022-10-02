@@ -18,7 +18,7 @@ const styles = {
   rankBtn:
     "bg-violet-700 border-2	border-violet-700 border-solid	rounded-lg	shadow-md	shadow-violet-700 p-1",
   stats: "grid gap-8	grid grid-cols-2 w-full",
-  row: "flex justify-between my-2 mx-0 pb-2",
+  row: "flex justify-between my-2 mx-0 pb-2 border-b-2	border-solid	border-gray-50",
 };
 
 const Coin = () => {
