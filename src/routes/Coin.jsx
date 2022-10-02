@@ -20,6 +20,7 @@ const styles = {
   stats: "grid gap-8	grid grid-cols-2 w-full",
   row: "flex justify-between my-2 mx-0 pb-2 border-b-2	border-solid	border-gray-50",
   statsRowParagraph: "text-neutral-300",
+  table: "table-auto my-2 mx-0",
 };
 
 const Coin = () => {
@@ -73,7 +74,7 @@ const Coin = () => {
         </div>
 
         <div className={styles.content}>
-          <table>
+          <table className={styles.table}>
             <thead>
               <tr>
                 <th>1h</th>
