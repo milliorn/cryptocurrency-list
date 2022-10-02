@@ -19,6 +19,7 @@ const styles = {
     "bg-violet-700 border-2	border-violet-700 border-solid	rounded-lg	shadow-md	shadow-violet-700 p-1",
   stats: "grid gap-8	grid grid-cols-2 w-full",
   row: "flex justify-between my-2 mx-0 pb-2 border-b-2	border-solid	border-gray-50",
+  statsRowParagraph: "text-neutral-300",
 };
 
 const Coin = () => {
@@ -44,12 +45,14 @@ const Coin = () => {
         <div className={styles.content}>
           <h1>{coin.name}</h1>
         </div>
+
         <div className={styles.content}>
           <div className={styles.rank}>
             <span className={styles.rankBtn}>
               Rank # {coin.market_cap_rank}
             </span>
           </div>
+
           <div className={styles.info}>
             <div className={styles.coinHeading}>
               {coin.image ? <img src={coin.image.small} alt="" /> : null}
@@ -60,6 +63,7 @@ const Coin = () => {
                 </p>
               ) : null}
             </div>
+
             <div className={styles.coinPrice}>
               {coin.market_data?.current_price ? (
                 <h1>${coin.market_data.current_price.usd.toLocaleString()}</h1>
@@ -152,13 +156,17 @@ const Coin = () => {
               <div className={styles.row}>
                 <h4>24 Hour Low</h4>
                 {coin.market_data?.low_24h ? (
-                  <p>${coin.market_data.low_24h.usd.toLocaleString()}</p>
+                  <p className={styles.statsRowParagraph}>
+                    ${coin.market_data.low_24h.usd.toLocaleString()}
+                  </p>
                 ) : null}
               </div>
               <div className={styles.row}>
                 <h4>24 Hour High</h4>
                 {coin.market_data?.high_24h ? (
-                  <p>${coin.market_data.high_24h.usd.toLocaleString()}</p>
+                  <p className={styles.statsRowParagraph}>
+                    ${coin.market_data.high_24h.usd.toLocaleString()}
+                  </p>
                 ) : null}{" "}
               </div>
             </div>
@@ -166,13 +174,17 @@ const Coin = () => {
               <div className={styles.row}>
                 <h4>Market Cap</h4>
                 {coin.market_data?.market_cap ? (
-                  <p>${coin.market_data.market_cap.usd.toLocaleString()}</p>
+                  <p className={styles.statsRowParagraph}>
+                    ${coin.market_data.market_cap.usd.toLocaleString()}
+                  </p>
                 ) : null}
               </div>
               <div className={styles.row}>
                 <h4>Circulating Supply</h4>
                 {coin.market_data ? (
-                  <p>{coin.market_data.circulating_supply}</p>
+                  <p className={styles.statsRowParagraph}>
+                    {coin.market_data.circulating_supply}
+                  </p>
                 ) : null}
               </div>
             </div>
