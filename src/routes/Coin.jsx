@@ -6,6 +6,12 @@ import { useParams } from "react-router-dom";
 
 import "../styles/Coin.css";
 
+const styles = {
+  h3: "my-4 mx-0",
+  content:
+    "bg-zinc-800 rounded-lg flex flex-col	my-4 mx-auto max-w-3xl py-3 px-1 shadow-2xl	shadow-zinc-900	",
+};
+
 const Coin = () => {
   const params = useParams();
   const [coin, setCoin] = useState({});
@@ -26,10 +32,10 @@ const Coin = () => {
   return (
     <div>
       <div className="coin-container">
-        <div className="content">
+        <div className={styles.content}>
           <h1>{coin.name}</h1>
         </div>
-        <div className="content">
+        <div className={styles.content}>
           <div className="rank">
             <span className="rank-btn">Rank # {coin.market_cap_rank}</span>
           </div>
@@ -47,7 +53,7 @@ const Coin = () => {
           </div>
         </div>
 
-        <div className="content">
+        <div className={styles.content}>
           <table>
             <thead>
               <tr>
@@ -125,7 +131,7 @@ const Coin = () => {
             </tbody>
           </table>
         </div>
-        <div className="content">
+        <div className={styles.content}>
           <div className="stats">
             <div className="left">
               <div className="row">
@@ -158,9 +164,9 @@ const Coin = () => {
           </div>
         </div>
 
-        <div className="content">
+        <div className={styles.content}>
           <div className="about">
-            <h3>About</h3>
+            <h3 className={styles.h3}>About</h3>
             <p
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(
