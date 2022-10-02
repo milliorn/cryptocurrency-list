@@ -4,8 +4,6 @@ import DOMPurify from "dompurify";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import "../styles/Coin.css";
-
 const styles = {
   h3: "my-4 mx-0",
   content:
@@ -18,10 +16,12 @@ const styles = {
   rankBtn:
     "bg-violet-700 border-2	border-violet-700 border-solid	rounded-lg	shadow-md	shadow-violet-700 p-1",
   stats: "grid gap-8	grid grid-cols-2 w-full",
-  row: "flex justify-between my-2 mx-0 pb-2 border-b-2	border-solid	border-gray-50",
+  row: "flex justify-between my-2 mx-0 pb-2 border-b-2	border-solid	border-zinc-500",
   statsRowParagraph: "text-neutral-300",
   table: "table-auto my-2 mx-0",
-  thTd: "p-2 text-center",
+  thTd: "p-2 text-center border-x-2	border-solid	border-zinc-700",
+  tableRow: "bg-zinc-600",
+  h1: "text-5xl",
 };
 
 const Coin = () => {
@@ -39,13 +39,14 @@ const Coin = () => {
       .catch((error) => {
         console.log(error);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div>
       <div className="coin-container">
         <div className={styles.content}>
-          <h1>{coin.name}</h1>
+          <h1 className={styles.h1}>{coin.name}</h1>
         </div>
 
         <div className={styles.content}>
@@ -68,7 +69,9 @@ const Coin = () => {
 
             <div className={styles.coinPrice}>
               {coin.market_data?.current_price ? (
-                <h1>${coin.market_data.current_price.usd.toLocaleString()}</h1>
+                <h2 className={styles.h2}>
+                  ${coin.market_data.current_price.usd.toLocaleString()}
+                </h2>
               ) : null}
             </div>
           </div>
@@ -77,7 +80,7 @@ const Coin = () => {
         <div className={styles.content}>
           <table className={styles.table}>
             <thead>
-              <tr>
+              <tr className={styles.tableRow}>
                 <th className={styles.thTd}>1h</th>
                 <th className={styles.thTd}>24h</th>
                 <th className={styles.thTd}>7d</th>
