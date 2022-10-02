@@ -2,9 +2,14 @@ import React from "react";
 
 import "../styles/Coins.css";
 
+const styles = {
+  coinRow:
+    "flex justify-between	items-center bg-zinc-800 shadow-lg shadow-zinc-900 rounded-lg	my-8 mx-4",
+};
+
 const CoinItem = (props) => {
   return (
-    <div className="coin-row">
+    <div className={styles.coinRow}>
       <p>{props.coins.market_cap_rank}</p>
       <div className="img-symbol">
         <img src={props.coins.image} alt="" />
