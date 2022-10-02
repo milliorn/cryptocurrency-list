@@ -12,6 +12,8 @@ const styles = {
     "bg-zinc-800 rounded-lg flex flex-col	my-4 mx-auto max-w-3xl py-3 px-1 shadow-2xl	shadow-zinc-900	",
   info: "grid grid-cols-2	",
   coinHeading: "items-center flex my-4 mx-0",
+  coinPrice: "items-center flex justify-center",
+  infoParagrah: "pr-4",
 };
 
 const Coin = () => {
@@ -44,10 +46,14 @@ const Coin = () => {
           <div className={styles.info}>
             <div className={styles.coinHeading}>
               {coin.image ? <img src={coin.image.small} alt="" /> : null}
-              <p>{coin.name}</p>
-              {coin.symbol ? <p>{coin.symbol.toUpperCase()}/USD</p> : null}
+              <p className={styles.infoParagrah}>{coin.name}</p>
+              {coin.symbol ? (
+                <p className={styles.infoParagrah}>
+                  {coin.symbol.toUpperCase()}/USD
+                </p>
+              ) : null}
             </div>
-            <div className="coin-price">
+            <div className={styles.coinPrice}>
               {coin.market_data?.current_price ? (
                 <h1>${coin.market_data.current_price.usd.toLocaleString()}</h1>
               ) : null}
