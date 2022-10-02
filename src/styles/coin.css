@@ -1,9 +1,5 @@
 .stats .row {
   border-bottom: 1px solid gray;
-  display: flex;
-  justify-content: space-between;
-  margin: 0.6rem 0;
-  padding-bottom: 0.5rem;
 }
 
 .stats .row p:first-child {

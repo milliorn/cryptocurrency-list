@@ -18,6 +18,7 @@ const styles = {
   rankBtn:
     "bg-violet-700 border-2	border-violet-700 border-solid	rounded-lg	shadow-md	shadow-violet-700 p-1",
   stats: "grid gap-8	grid grid-cols-2 w-full",
+  row: "flex justify-between my-2 mx-0 pb-2",
 };
 
 const Coin = () => {
@@ -148,13 +149,13 @@ const Coin = () => {
         <div className={styles.content}>
           <div className={styles.stats}>
             <div className="left">
-              <div className="row">
+              <div className={styles.row}>
                 <h4>24 Hour Low</h4>
                 {coin.market_data?.low_24h ? (
                   <p>${coin.market_data.low_24h.usd.toLocaleString()}</p>
                 ) : null}
               </div>
-              <div className="row">
+              <div className={styles.row}>
                 <h4>24 Hour High</h4>
                 {coin.market_data?.high_24h ? (
                   <p>${coin.market_data.high_24h.usd.toLocaleString()}</p>
@@ -162,13 +163,13 @@ const Coin = () => {
               </div>
             </div>
             <div className="right">
-              <div className="row">
+              <div className={styles.row}>
                 <h4>Market Cap</h4>
                 {coin.market_data?.market_cap ? (
                   <p>${coin.market_data.market_cap.usd.toLocaleString()}</p>
                 ) : null}
               </div>
-              <div className="row">
+              <div className={styles.row}>
                 <h4>Circulating Supply</h4>
                 {coin.market_data ? (
                   <p>{coin.market_data.circulating_supply}</p>
