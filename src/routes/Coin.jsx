@@ -10,13 +10,14 @@ const styles = {
   h3: "my-4 mx-0",
   content:
     "bg-zinc-800 rounded-lg flex flex-col	my-4 mx-auto max-w-3xl py-3 px-1 shadow-2xl	shadow-zinc-900	",
-  info: "grid grid-cols-2	",
+  info: "grid grid-cols-2",
   coinHeading: "items-center flex my-4 mx-0",
   coinPrice: "items-center flex justify-center",
   infoParagrah: "pr-4",
   rank: "my-2 mx-0",
   rankBtn:
     "bg-violet-700 border-2	border-violet-700 border-solid	rounded-lg	shadow-md	shadow-violet-700 p-1",
+  stats: "grid gap-8	grid grid-cols-2 w-full",
 };
 
 const Coin = () => {
@@ -145,7 +146,7 @@ const Coin = () => {
           </table>
         </div>
         <div className={styles.content}>
-          <div className="stats">
+          <div className={styles.stats}>
             <div className="left">
               <div className="row">
                 <h4>24 Hour Low</h4>
