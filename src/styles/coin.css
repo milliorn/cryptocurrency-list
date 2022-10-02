@@ -1,12 +1,6 @@
 .info {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.info .coin-heading {
-  align-items: center;
-  display: flex;
-  margin: 1rem 0;
+  //display: grid;
+  //grid-template-columns: repeat(2, 1fr);
 }
 
 .info .coin-price {

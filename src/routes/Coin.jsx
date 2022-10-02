@@ -10,6 +10,8 @@ const styles = {
   h3: "my-4 mx-0",
   content:
     "bg-zinc-800 rounded-lg flex flex-col	my-4 mx-auto max-w-3xl py-3 px-1 shadow-2xl	shadow-zinc-900	",
+  info: "grid grid-cols-2	",
+  coinHeading: "items-center flex my-4 mx-0",
 };
 
 const Coin = () => {
@@ -39,8 +41,8 @@ const Coin = () => {
           <div className="rank">
             <span className="rank-btn">Rank # {coin.market_cap_rank}</span>
           </div>
-          <div className="info">
-            <div className="coin-heading">
+          <div className={styles.info}>
+            <div className={styles.coinHeading}>
               {coin.image ? <img src={coin.image.small} alt="" /> : null}
               <p>{coin.name}</p>
               {coin.symbol ? <p>{coin.symbol.toUpperCase()}/USD</p> : null}
