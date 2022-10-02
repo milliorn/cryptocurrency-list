@@ -1,8 +1,3 @@
-.info {
-  //display: grid;
-  //grid-template-columns: repeat(2, 1fr);
-}
-
 .info .coin-price {
   align-items: center;
   display: flex;
