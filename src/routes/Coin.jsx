@@ -21,6 +21,7 @@ const styles = {
   row: "flex justify-between my-2 mx-0 pb-2 border-b-2	border-solid	border-gray-50",
   statsRowParagraph: "text-neutral-300",
   table: "table-auto my-2 mx-0",
+  thTd: "p-2 text-center",
 };
 
 const Coin = () => {
@@ -77,17 +78,17 @@ const Coin = () => {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>1h</th>
-                <th>24h</th>
-                <th>7d</th>
-                <th>14d</th>
-                <th>30d</th>
-                <th>1yr</th>
+                <th className={styles.thTd}>1h</th>
+                <th className={styles.thTd}>24h</th>
+                <th className={styles.thTd}>7d</th>
+                <th className={styles.thTd}>14d</th>
+                <th className={styles.thTd}>30d</th>
+                <th className={styles.thTd}>1yr</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>
+                <td className={styles.thTd}>
                   {coin.market_data?.price_change_percentage_1h_in_currency ? (
                     <p>
                       {coin.market_data.price_change_percentage_1h_in_currency.usd.toFixed(
@@ -97,7 +98,7 @@ const Coin = () => {
                     </p>
                   ) : null}
                 </td>
-                <td>
+                <td className={styles.thTd}>
                   {coin.market_data?.price_change_percentage_24h_in_currency ? (
                     <p>
                       {coin.market_data.price_change_percentage_24h_in_currency.usd.toFixed(
@@ -107,7 +108,7 @@ const Coin = () => {
                     </p>
                   ) : null}
                 </td>
-                <td>
+                <td className={styles.thTd}>
                   {coin.market_data?.price_change_percentage_24h_in_currency ? (
                     <p>
                       {coin.market_data.price_change_percentage_7d_in_currency.usd.toFixed(
@@ -117,7 +118,7 @@ const Coin = () => {
                     </p>
                   ) : null}
                 </td>
-                <td>
+                <td className={styles.thTd}>
                   {coin.market_data?.price_change_percentage_24h_in_currency ? (
                     <p>
                       {coin.market_data.price_change_percentage_14d_in_currency.usd.toFixed(
@@ -127,7 +128,7 @@ const Coin = () => {
                     </p>
                   ) : null}
                 </td>
-                <td>
+                <td className={styles.thTd}>
                   {coin.market_data?.price_change_percentage_24h_in_currency ? (
                     <p>
                       {coin.market_data.price_change_percentage_30d_in_currency.usd.toFixed(
@@ -137,7 +138,7 @@ const Coin = () => {
                     </p>
                   ) : null}
                 </td>
-                <td>
+                <td className={styles.thTd}>
                   {coin.market_data?.price_change_percentage_24h_in_currency ? (
                     <p>
                       {coin.market_data.price_change_percentage_1y_in_currency.usd.toFixed(
