@@ -22,6 +22,7 @@ const styles = {
   thTd: "p-2 text-center border-x-2	border-solid	border-zinc-700 text-xs",
   tableRow: "bg-zinc-600",
   h1: "text-3xl",
+  img: "h-12	mr-2",
 };
 
 const Coin = () => {
@@ -55,7 +56,9 @@ const Coin = () => {
 
         <div className={styles.info}>
           <div className={styles.coinHeading}>
-            {coin.image ? <img src={coin.image.small} alt="" /> : null}
+            {coin.image ? (
+              <img className={styles.img} src={coin.image.small} alt="" />
+            ) : null}
             <p className={styles.infoParagrah}>{coin.name}</p>
             {coin.symbol ? (
               <p className={styles.infoParagrah}>

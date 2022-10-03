@@ -27,7 +27,7 @@ function App() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container m-auto max-w-screen-2xl">
       <Navbar />
       <Routes>
         <Route path="/" element={<Coins coins={coins} />} />
