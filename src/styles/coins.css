@@ -19,21 +19,10 @@
   margin-left: -4rem;
 }
 
-.coin-row:hover {
-  transform: scale(1.04);
-  transition: 0.3s ease-in-out;
-  cursor: pointer;
-}
-
 img {
   height: 40px;
   margin-right: 8px;
   width: auto;
-}
-
-.img-symbol {
-  display: flex;
-  align-items: center;
 }
 
 @media screen and (max-width: 720px) {

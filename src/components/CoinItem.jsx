@@ -4,14 +4,15 @@ import "../styles/Coins.css";
 
 const styles = {
   coinRow:
-    "flex justify-between	items-center bg-zinc-800 shadow-lg shadow-zinc-900 rounded-lg	my-8 mx-4",
+    "flex cursor-pointer	justify-between	items-center bg-zinc-800 shadow-lg shadow-zinc-900 rounded-lg	my-8 mx-4 hover:scale-105	ease-in-out duration-300",
+  imgSymbol: "flex items-center",
 };
 
 const CoinItem = (props) => {
   return (
     <div className={styles.coinRow}>
       <p>{props.coins.market_cap_rank}</p>
-      <div className="img-symbol">
+      <div className={styles.imgSymbol}>
         <img src={props.coins.image} alt="" />
         <p>{props.coins.symbol.toUpperCase()}</p>
       </div>
