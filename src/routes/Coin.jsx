@@ -9,7 +9,6 @@ const styles = {
   coinPrice: "items-center flex justify-center",
   content:
     "bg-zinc-800 rounded-lg flex flex-col	my-4 mx-auto max-w-3xl py-3 px-1 shadow-2xl	shadow-zinc-900	",
-  h1: "text-3xl",
   h3: "my-4 mx-0",
   img: "h-12	mr-2",
   info: "grid grid-cols-2",
@@ -45,10 +44,6 @@ const Coin = () => {
 
   return (
     <div className="coin-container">
-      <div className={styles.content}>
-        <h1 className={styles.h1}>{coin.name}</h1>
-      </div>
-
       <div className={styles.content}>
         <div className={styles.rank}>
           <span className={styles.rankBtn}>Rank # {coin.market_cap_rank}</span>
@@ -197,7 +192,7 @@ const Coin = () => {
               <h4>Circulating Supply</h4>
               {coin.market_data ? (
                 <p className={styles.statsRowParagraph}>
-                  {coin.market_data.circulating_supply}
+                  ${coin.market_data.circulating_supply.toLocaleString()}
                 </p>
               ) : null}
             </div>
