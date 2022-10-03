@@ -7,17 +7,15 @@ const styles = {
   purple: "text-violet-400",
 };
 
-const Navbar = () => {
-  return (
-    <Link to="/">
-      <div className={styles.navbar}>
-        <FaCoins className={styles.purple} />
-        <h1>
-          Crypto <span className={styles.purple}>Watch</span>
-        </h1>
-      </div>
-    </Link>
-  );
-};
+const Navbar = () => (
+  <Link to="/">
+    <div className={styles.navbar}>
+      <FaCoins className={styles.purple} />
+      <h1>
+        Crypto <span className={styles.purple}>Watch</span>
+      </h1>
+    </div>
+  </Link>
+);
 
 export default Navbar;

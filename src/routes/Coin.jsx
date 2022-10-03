@@ -5,24 +5,24 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const styles = {
-  h3: "my-4 mx-0",
-  content:
-    "bg-zinc-800 rounded-lg flex flex-col	my-4 mx-auto max-w-3xl py-3 px-1 shadow-2xl	shadow-zinc-900	",
-  info: "grid grid-cols-2",
   coinHeading: "items-center flex my-4 mx-0",
   coinPrice: "items-center flex justify-center",
+  content:
+    "bg-zinc-800 rounded-lg flex flex-col	my-4 mx-auto max-w-3xl py-3 px-1 shadow-2xl	shadow-zinc-900	",
+  h1: "text-3xl",
+  h3: "my-4 mx-0",
+  img: "h-12	mr-2",
+  info: "grid grid-cols-2",
   infoParagrah: "pr-4",
   rank: "my-2 mx-0",
   rankBtn:
-    "bg-violet-700 border-2	border-violet-700 border-solid	rounded-lg	shadow-md	shadow-violet-700 p-1",
-  stats: "sm:grid gap-8	sm:grid-cols-2 w-full",
+    "bg-slate-600 border-2	border-slate-600 border-solid	rounded-lg	shadow-md	shadow-slate-600 p-1",
   row: "flex justify-between my-2 mx-0 pb-2 border-b-2	border-solid	border-zinc-500",
+  stats: "sm:grid gap-8	sm:grid-cols-2 w-full",
   statsRowParagraph: "text-neutral-300",
   table: "table-auto my-2 mx-0",
-  thTd: "p-2 text-center border-x-2	border-solid	border-zinc-700 text-xs",
   tableRow: "bg-zinc-600",
-  h1: "text-3xl",
-  img: "h-12	mr-2",
+  thTd: "p-2 text-center border-x-2	border-solid	border-zinc-700 text-xs",
 };
 
 const Coin = () => {

@@ -5,7 +5,6 @@ import Coin from "../routes/Coin";
 import CoinItem from "./CoinItem";
 
 const styles = {
-  coinName: "",
   heading:
     "flex justify-between items-center bg-zinc-800 shadow-2xl	shadow-zinc-900 rounded-lg	my-8 mx-1 py-3 px-4 font-bold",
   hidden1: "hidden md:contents",
@@ -16,7 +15,7 @@ const Coins = (props) => (
   <div className="coins-container">
     <div className={styles.heading}>
       <p>#</p>
-      <p className={styles.coinName}>Coin</p>
+      <p>Coin</p>
       <p>Price</p>
       <p>24h</p>
       <p className={styles.hidden1}>Volume</p>
