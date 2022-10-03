@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import Coin from "../routes/Coin";
 import CoinItem from "./CoinItem";
 
-import "../styles/Coins.css";
-
 const styles = {
   coinName: "",
   heading:

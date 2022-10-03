@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const styles = {
   navbar: "flex justify-center items-center text-3xl shadow-2xl	shadow-zinc-900",
-  purple: "text-violet-700",
+  purple: "text-violet-400",
 };
 
 const Navbar = () => {
