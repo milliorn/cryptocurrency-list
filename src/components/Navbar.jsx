@@ -8,7 +8,7 @@ const styles = {
 };
 
 const Navbar = () => (
-  <Link to="/">
+  <Link to="/cryptocurrency-list">
     <div className={styles.navbar}>
       <FaCoins className={styles.purple} />
       <h1>
