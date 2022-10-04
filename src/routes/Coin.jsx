@@ -4,6 +4,8 @@ import DOMPurify from "dompurify";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import CoinTable from "../components/CoinTable";
+
 const styles = {
   coinHeading: "items-center flex my-4 mx-0",
   coinPrice: "items-center flex justify-center",
@@ -86,72 +88,7 @@ const Coin = () => {
           </thead>
 
           <tbody>
-            <tr>
-              <td className={styles.thTd}>
-                {coin.market_data?.price_change_percentage_1h_in_currency ? (
-                  <p>
-                    {coin.market_data.price_change_percentage_1h_in_currency.usd.toFixed(
-                      1
-                    )}
-                    %
-                  </p>
-                ) : null}
-              </td>
-
-              <td className={styles.thTd}>
-                {coin.market_data?.price_change_percentage_24h_in_currency ? (
-                  <p>
-                    {coin.market_data.price_change_percentage_24h_in_currency.usd.toFixed(
-                      1
-                    )}
-                    %
-                  </p>
-                ) : null}
-              </td>
-
-              <td className={styles.thTd}>
-                {coin.market_data?.price_change_percentage_7d_in_currency ? (
-                  <p>
-                    {coin.market_data.price_change_percentage_7d_in_currency.usd.toFixed(
-                      1
-                    )}
-                    %
-                  </p>
-                ) : null}
-              </td>
-              <td className={styles.thTd}>
-                {coin.market_data?.price_change_percentage_14d_in_currency ? (
-                  <p>
-                    {coin.market_data.price_change_percentage_14d_in_currency.usd.toFixed(
-                      1
-                    )}
-                    %
-                  </p>
-                ) : null}
-              </td>
-
-              <td className={styles.thTd}>
-                {coin.market_data?.price_change_percentage_30d_in_currency ? (
-                  <p>
-                    {coin.market_data.price_change_percentage_30d_in_currency.usd.toFixed(
-                      1
-                    )}
-                    %
-                  </p>
-                ) : null}
-              </td>
-
-              <td className={styles.thTd}>
-                {coin.market_data?.price_change_percentage_1y_in_currency ? (
-                  <p>
-                    {coin.market_data.price_change_percentage_1y_in_currency.usd.toFixed(
-                      1
-                    )}
-                    %
-                  </p>
-                ) : null}
-              </td>
-            </tr>
+            <CoinTable coin={coin} />
           </tbody>
         </table>
       </div>
