@@ -2,7 +2,7 @@
   "name": "cryptocurrency-list",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://milliorn.github.io/cryptocurrency-list",
+  "homepage": "https://milliorn.github.io/cryptocurrency-list/",
   "dependencies": {
     "axios": "0.27.2",
     "dompurify": "2.4.0",
