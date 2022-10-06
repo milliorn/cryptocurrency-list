@@ -12,7 +12,7 @@ const styles = {
 };
 
 const Coins = (props) => (
-  <div className="coins-container">
+  <div className="coins-container m-auto">
     <div className={styles.heading}>
       <p>#</p>
       <p>Coin</p>
