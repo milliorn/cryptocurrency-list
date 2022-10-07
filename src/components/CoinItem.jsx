@@ -1,4 +1,6 @@
 import React from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const styles = {
   coinRow:
@@ -13,14 +15,20 @@ const CoinItem = (props) => (
   <div className={styles.coinRow}>
     <p>{props.coins.market_cap_rank}</p>
     <div className={styles.imgSymbol}>
-      <img
-        src={props.coins.image}
-        alt={props.coins.symbol.toLowerCase()}
-        className={styles.img}
-      />
+      <div className={styles.img}>
+        <LazyLoadImage
+          alt={props.coins.symbol.toLowerCase()}
+          className={styles.img}
+          effect="blur"
+          height={props.coins.image.height}
+          placeholderSrc="../../public/logo192.png"
+          src={props.coins.image}
+          width={props.coins.image.width}
+        />
+      </div>
       <p>{props.coins.symbol.toUpperCase()}</p>
     </div>
-    <p>{props.coins.current_price.toLocaleString()}</p>
+    <p>{props.coins.current_price.toFixed(2)}</p>
     <p>{props.coins.price_change_percentage_24h.toFixed(2)}%</p>
     <p className={styles.hidden1}>
       {props.coins.total_volume.toLocaleString()}

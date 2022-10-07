@@ -1,7 +1,9 @@
 import axios from "axios";
 import DOMPurify from "dompurify";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import React, { useEffect, useState } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useParams } from "react-router-dom";
 
 import CoinTable from "../components/CoinTable";
@@ -54,7 +56,16 @@ const Coin = () => {
         <div className={styles.info}>
           <div className={styles.coinHeading}>
             {coin.image ? (
-              <img className={styles.img} src={coin.image.small} alt="" />
+              <div className={styles.img}>
+                <LazyLoadImage
+                  alt={coin.symbol.toLowerCase()}
+                  effect="blur"
+                  height={coin.image.height}
+                  placeholderSrc="../../public/logo192.png"
+                  src={coin.image.small}
+                  width={coin.image.width}
+                />
+              </div>
             ) : null}
             <p className={styles.infoParagrah}>{coin.name}</p>
             {coin.symbol ? (
