@@ -1,8 +1,6 @@
 # cryptocurrency-list
 
-[![CodeQL](https://github.com/milliorn/cryptocurrency-list/actions/workflows/codeql.yml/badge.svg)](https://github.com/milliorn/cryptocurrency-list/actions/workflows/codeql.yml)
 [![Dependency Review](https://github.com/milliorn/cryptocurrency-list/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/milliorn/cryptocurrency-list/actions/workflows/dependency-review.yml)
-[![OSSAR](https://github.com/milliorn/cryptocurrency-list/actions/workflows/ossar.yml/badge.svg)](https://github.com/milliorn/cryptocurrency-list/actions/workflows/ossar.yml)
 
 axios -> <https://www.npmjs.com/package/axios>
 
