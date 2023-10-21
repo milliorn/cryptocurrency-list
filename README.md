@@ -1,6 +1,7 @@
 # cryptocurrency-list
 
 [![CodeQL](https://github.com/milliorn/cryptocurrency-list/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/milliorn/cryptocurrency-list/actions/workflows/github-code-scanning/codeql)
+[![pages-build-deployment](https://github.com/milliorn/cryptocurrency-list/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/milliorn/cryptocurrency-list/actions/workflows/pages/pages-build-deployment)
 
 This repository is a collection of cryptocurrency-related information and resources. It provides a web application built with React, showcasing a list of cryptocurrencies along with their details.
 
