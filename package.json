@@ -18,7 +18,7 @@
     "@tailwindcss/postcss": "^4.0.6",
     "autoprefixer": "^10.4.20",
     "gh-pages": "6.3.0",
-    "postcss": "8.5.2",
+    "postcss": "8.5.3",
     "postcss-importer": "^1.0.1",
     "postcss-loader": "^8.1.1"
   },
