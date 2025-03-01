@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@tailwindcss/postcss": "^4.0.6",
+    "@tailwindcss/postcss": "^4.0.9",
     "autoprefixer": "^10.4.20",
     "gh-pages": "6.3.0",
     "postcss": "8.5.3",
