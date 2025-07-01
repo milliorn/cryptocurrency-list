@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://milliorn.github.io/cryptocurrency-list",
   "dependencies": {
-    "axios": "1.9.0",
+    "axios": "1.10.0",
     "dompurify": "3.2.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
