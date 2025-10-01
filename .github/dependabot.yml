@@ -9,12 +9,10 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-    ignore: &ignore-majors
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
-
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "monthly"
-    ignore: *ignore-majors
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
