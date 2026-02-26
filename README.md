@@ -1,82 +1,491 @@
-# cryptocurrency-list
+# Cryptocurrency List
 
 [![CodeQL](https://github.com/milliorn/cryptocurrency-list/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/milliorn/cryptocurrency-list/actions/workflows/github-code-scanning/codeql)
 [![pages-build-deployment](https://github.com/milliorn/cryptocurrency-list/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/milliorn/cryptocurrency-list/actions/workflows/pages/pages-build-deployment)
 
-This repository is a collection of cryptocurrency-related information and resources. It provides a web application built with React, showcasing a list of cryptocurrencies along with their details.
+A responsive, single-page web application that displays real-time cryptocurrency market data sourced from the [CoinGecko public API](https://www.coingecko.com/en/api/documentation). Users can browse the top 20 cryptocurrencies ranked by market capitalization, view detailed statistics for individual coins, and read coin descriptions — all within a clean, dark-themed interface.
 
-## Demo
+The application is live and publicly accessible at:
+**[https://milliorn.github.io/cryptocurrency-list](https://milliorn.github.io/cryptocurrency-list)**
 
-You can check out the live cryptocurrency list application [here](https://milliorn.github.io/cryptocurrency-list).
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Project Structure](#project-structure)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Running the Application](#running-the-application)
+- [Building for Production](#building-for-production)
+- [Deployment](#deployment)
+- [API Reference](#api-reference)
+- [Application Routes](#application-routes)
+- [Component Reference](#component-reference)
+- [Responsive Design](#responsive-design)
+- [Security](#security)
+- [Dependency Management](#dependency-management)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+## Overview
+
+This project was built to demonstrate a practical, real-world React application that integrates with a third-party REST API, handles client-side routing, and applies modern CSS utility frameworks. It fetches live market data from the CoinGecko API — a free, no-authentication-required service — and renders it in a structured, readable format suitable for casual users and developers alike.
+
+The application consists of two primary views:
+
+1. **The Coin List View** — A paginated table of the top 20 cryptocurrencies sorted by market capitalization in descending order, showing rank, ticker symbol, USD price, 24-hour price change percentage, total trading volume, and total market cap.
+2. **The Coin Detail View** — A dedicated page for each cryptocurrency, showing deeper data including historical price change percentages across multiple time windows, daily price range, market cap, circulating supply, and an editorial description of the asset.
+
+---
 
 ## Features
 
-- Display a list of cryptocurrencies
-- Show details of each cryptocurrency
-- Fetch cryptocurrency data from the CoinGecko API
-- Use Axios for making API requests
-- Utilize React Router for navigation
-- Lazy load images for improved performance
-- Apply Tailwind CSS for styling
+- **Live Market Data** — Fetches real-time data from the CoinGecko `/coins/markets` and `/coins/{id}` API endpoints on every page load.
+- **Top 20 by Market Cap** — The list is always ordered by market capitalization descending, giving users an at-a-glance view of the dominant assets.
+- **Coin Detail Pages** — Each coin in the list links to a dedicated detail page with extended statistics and an editorially sourced description.
+- **Price Change Indicators** — The detail view displays percentage price changes across six time windows: 1 hour, 24 hours, 7 days, 14 days, 30 days, and 1 year.
+- **Lazy-Loaded Images** — Coin logos are lazy-loaded with a blur-up effect using `react-lazy-load-image-component`, reducing initial page load time and improving perceived performance.
+- **Responsive Layout** — The list view adapts gracefully to different screen sizes. Volume data is shown on medium screens and above; market cap data is shown on large screens and above. The layout is never broken on mobile.
+- **Dark Theme** — Styled with a dark zinc/slate color palette using Tailwind CSS utility classes for a modern developer-facing aesthetic.
+- **Sanitized HTML Rendering** — Coin descriptions sourced from the API may contain HTML markup. All such content is passed through DOMPurify before being rendered, preventing XSS vulnerabilities.
+- **Client-Side Routing** — Navigation between the list and detail views uses React Router, providing fast, seamless transitions without full page reloads.
+- **Progressive Web App (PWA) Ready** — Includes a `manifest.json` and correctly sized icons, making the app installable as a PWA on supported devices.
+- **Automated Security Scanning** — The repository runs GitHub's CodeQL static analysis on every push to detect potential code vulnerabilities.
+
+---
+
+## Project Structure
+
+```
+cryptocurrency-list/
+├── .github/
+│   ├── dependabot.yml              # Automated dependency update schedule
+│   └── workflows/
+│       └── automerge.yml           # Auto-merge workflow for Dependabot PRs
+├── build/                          # Output directory generated by `npm run build` (not committed)
+├── public/
+│   ├── index.html                  # HTML shell; React mounts into <div id="root">
+│   ├── manifest.json               # PWA manifest (name, icons, theme color)
+│   ├── favicon.ico
+│   ├── favicon-16x16.png
+│   ├── favicon-32x32.png
+│   ├── apple-touch-icon.png
+│   ├── android-chrome-192x192.png
+│   └── android-chrome-512x512.png
+├── src/
+│   ├── index.js                    # Application entry point; renders App inside BrowserRouter
+│   ├── index.css                   # Global base styles (background, typography)
+│   ├── App.jsx                     # Root component; fetches coin list, defines routes
+│   ├── components/
+│   │   ├── Navbar.jsx              # Top navigation bar with app branding
+│   │   ├── Coins.jsx               # List view container; renders column headers and CoinItem rows
+│   │   ├── CoinItem.jsx            # A single row in the coin list (rank, symbol, price, etc.)
+│   │   └── CoinTable.jsx           # Price change % table used inside the Coin detail page
+│   └── routes/
+│       └── Coin.jsx                # Detail page for a single coin; fetches and renders full coin data
+├── .gitignore
+├── LICENSE                         # MIT License
+├── package.json                    # Project metadata, dependencies, and npm scripts
+├── package-lock.json               # Locked dependency tree for reproducible installs
+├── postcss.config.js               # PostCSS plugin configuration
+├── README.md                       # This file
+└── tailwind.config.js              # Tailwind CSS content path configuration
+```
+
+---
+
+## Prerequisites
+
+Before cloning and running this project, ensure the following are installed on your machine:
+
+- **Node.js** — Version 16 or higher is recommended. Download from [https://nodejs.org](https://nodejs.org). You can verify your installed version by running:
+  ```bash
+  node --version
+  ```
+
+- **npm** — Comes bundled with Node.js. Version 8 or higher is recommended. Verify with:
+  ```bash
+  npm --version
+  ```
+
+- **Git** — Required to clone the repository. Download from [https://git-scm.com](https://git-scm.com) if not already installed.
+
+- **Internet connection** — The application fetches live data from the CoinGecko API at runtime. Both the development server and the production build require outbound network access to function correctly.
+
+No API keys, tokens, or paid accounts are required. The CoinGecko API used here is entirely free and requires no authentication for the endpoints this application uses.
+
+---
 
 ## Installation
 
-To run the cryptocurrency-list application locally, follow these steps:
+Follow these steps to get the project running on your local machine.
 
-1. Clone the repository
-2. Navigate to the project directory: `cd cryptocurrency-list`
-3. Install the dependencies: `npm install`
+**1. Clone the repository**
 
-## Usage
+```bash
+git clone https://github.com/milliorn/cryptocurrency-list.git
+```
+
+**2. Navigate into the project directory**
+
+```bash
+cd cryptocurrency-list
+```
+
+**3. Install all dependencies**
+
+```bash
+npm install
+```
+
+This will install both production dependencies (React, Axios, Tailwind CSS, etc.) and development dependencies (PostCSS, gh-pages, Babel plugins, etc.) as defined in `package.json`. The full dependency tree is pinned in `package-lock.json` to ensure a consistent, reproducible install.
+
+---
+
+## Running the Application
 
 ### Development Server
 
-To start the development server, use the following command `npm start`
+To start the local development server with hot module replacement:
 
-This will launch the application at `http://localhost:3000`.
+```bash
+npm start
+```
 
-### Production Build
+The application will be served at **[http://localhost:3000](http://localhost:3000)** and will automatically open in your default browser. Any changes you make to source files will trigger an instant reload in the browser without requiring a manual refresh.
 
-To build the application for production, use the following command `npm run build`
+> **Note:** The default route served at `http://localhost:3000` will not render application content. Navigate directly to `http://localhost:3000/cryptocurrency-list` to see the coin list. This is because the router is configured with the `/cryptocurrency-list` base path to match the GitHub Pages deployment URL structure.
 
-This will create a production-ready build in the `build` folder.
+### Running Tests
 
-### Deploy
+```bash
+npm test
+```
 
-To deploy the application to GitHub Pages, use the following command `npm run deploy`
+This launches the test runner in interactive watch mode using Jest. Press `a` to run all tests, or `q` to quit. This project uses the default Create React App testing setup.
 
-This will deploy the application to the URL specified in the `homepage` field of the `package.json` file.
+---
 
-## Technologies Used
+## Building for Production
 
-- React
-- Axios
-- CoinGecko API
-- React Router
-- React Icons
-- React Lazy Load Image Component
-- Tailwind CSS
+To compile and bundle the application for production deployment:
 
-## Dependencies
+```bash
+npm run build
+```
 
-- [axios](https://www.npmjs.com/package/axios) - Promise-based HTTP client for making API requests
-- [dompurify](https://www.npmjs.com/package/dompurify) - Library to sanitize HTML
-- [react-router-dom](https://www.npmjs.com/package/react-router-dom) - DOM bindings for React Router
-- [CoinGecko](https://www.coingecko.com/en/api/documentation) - CoinGecko API for fetching cryptocurrency data
-- [TailwindCSS](https://tailwindcss.com/docs/guides/create-react-app) - Utility-first CSS framework for styling
+This command runs `react-scripts build`, which performs the following:
+
+- Transpiles modern JavaScript and JSX to browser-compatible code via Babel.
+- Bundles and tree-shakes all modules using Webpack.
+- Minifies JavaScript and CSS to reduce file sizes.
+- Optimizes assets and generates hashed filenames for long-term cache busting.
+- Outputs everything to the `build/` directory.
+
+The generated `build/` directory is self-contained and can be served by any static file server. Do not commit the `build/` directory to source control; it is listed in `.gitignore`.
+
+---
+
+## Deployment
+
+This project is configured for deployment to **GitHub Pages** using the `gh-pages` package.
+
+### How it works
+
+The `package.json` includes a `homepage` field that tells `react-scripts` the public URL where the app will be hosted:
+
+```json
+"homepage": "https://milliorn.github.io/cryptocurrency-list"
+```
+
+The `predeploy` and `deploy` scripts automate the build and publish steps:
+
+```json
+"predeploy": "npm run build",
+"deploy": "gh-pages -d build"
+```
+
+### Deploy command
+
+```bash
+npm run deploy
+```
+
+Running this command will:
+
+1. Automatically execute `npm run build` first (via the `predeploy` hook).
+2. Push the contents of the `build/` directory to the `gh-pages` branch of the repository.
+3. GitHub Pages will serve the contents of that branch at the configured `homepage` URL.
+
+> **Note:** You must have write access to the repository and be authenticated with GitHub (via SSH keys or a personal access token) to deploy. If you have forked the repository, update the `homepage` field in `package.json` to point to your own GitHub Pages URL before deploying.
+
+---
+
+## API Reference
+
+This application uses the **CoinGecko API v3**, a free and publicly accessible cryptocurrency data API that requires no API key for the endpoints consumed here.
+
+### Endpoint 1 — Coin Markets (List View)
+
+Used by `src/App.jsx` on initial mount to populate the coin list.
+
+```
+GET https://api.coingecko.com/api/v3/coins/markets
+```
+
+**Query Parameters:**
+
+| Parameter | Value | Description |
+|---|---|---|
+| `vs_currency` | `usd` | All prices are returned in US dollars |
+| `order` | `market_cap_desc` | Results sorted by market cap, highest first |
+| `per_page` | `20` | Returns the top 20 coins |
+| `page` | `1` | First page of results |
+| `sparkline` | `false` | Sparkline chart data excluded to reduce payload size |
+
+**Data points used from the response:**
+
+- `market_cap_rank` — Rank number displayed in the list
+- `symbol` — Ticker symbol (e.g., BTC, ETH)
+- `image` — URL of the coin logo
+- `current_price` — Current USD price, displayed to 2 decimal places
+- `price_change_percentage_24h` — 24-hour price change percent
+- `total_volume` — Total trading volume in USD
+- `market_cap` — Total market capitalization in USD
+- `id` — Coin identifier used to construct the detail page URL
+
+### Endpoint 2 — Coin Detail
+
+Used by `src/routes/Coin.jsx` to fetch full data for a single coin. The coin ID is sourced from the URL route parameter.
+
+```
+GET https://api.coingecko.com/api/v3/coins/{id}
+```
+
+**Data points used from the response:**
+
+- `market_cap_rank` — Market cap rank badge
+- `name` — Full coin name
+- `symbol` — Ticker symbol
+- `image.small` — Small coin logo image
+- `market_data.current_price.usd` — Current USD price
+- `market_data.price_change_percentage_1h_in_currency.usd`
+- `market_data.price_change_percentage_24h_in_currency.usd`
+- `market_data.price_change_percentage_7d_in_currency.usd`
+- `market_data.price_change_percentage_14d_in_currency.usd`
+- `market_data.price_change_percentage_30d_in_currency.usd`
+- `market_data.price_change_percentage_1y_in_currency.usd`
+- `market_data.low_24h.usd` — 24-hour low price
+- `market_data.high_24h.usd` — 24-hour high price
+- `market_data.market_cap.usd` — Total market cap
+- `market_data.circulating_supply` — Coins currently in circulation
+- `description.en` — Plain text / HTML editorial description (English)
+
+> **Rate Limiting:** The CoinGecko free-tier API enforces rate limits. As of the time of writing, the limit is approximately 10–30 calls per minute for unauthenticated requests. This application makes at most 2 API calls per user session (one for the list, one per coin detail visited), so rate limiting is unlikely to be an issue under normal usage.
+
+---
+
+## Application Routes
+
+The application uses React Router DOM for client-side routing. All routes are rendered within the `<Routes>` component in `src/App.jsx`.
+
+| Path | Component | Description |
+|---|---|---|
+| `/cryptocurrency-list` | `<Coins />` | The main list view showing the top 20 coins |
+| `/coin/:coinId` | `<Coin />` | The detail page for a specific coin, where `:coinId` is the CoinGecko coin ID (e.g., `bitcoin`, `ethereum`) |
+
+### Example URLs
+
+- `https://milliorn.github.io/cryptocurrency-list` — Main list
+- `https://milliorn.github.io/coin/bitcoin` — Bitcoin detail page
+- `https://milliorn.github.io/coin/ethereum` — Ethereum detail page
+
+---
+
+## Component Reference
+
+### `src/App.jsx`
+
+The root component of the application. Responsibilities:
+
+- Fetches the top 20 coins from the CoinGecko markets endpoint using `axios` inside a `useEffect` hook on component mount.
+- Stores the fetched coin array in local state via `useState`.
+- Renders the `<Navbar />` and `<Routes>` layout.
+- Passes the coin array down to the `<Coins />` component as a prop.
+
+### `src/components/Navbar.jsx`
+
+A top-of-page navigation bar that displays the application name and branding. Uses React Icons for UI embellishments. This component accepts no props.
+
+### `src/components/Coins.jsx`
+
+A container component that renders the coin list. Responsibilities:
+
+- Renders column headers for the list table (Rank, Coin, Price, 24h Change, Volume, Market Cap).
+- Maps over the `coins` prop array and renders a `<CoinItem />` for each entry.
+- Wraps each `<CoinItem />` in a React Router `<Link>` pointing to `/coin/{coin.id}`.
+
+### `src/components/CoinItem.jsx`
+
+A stateless presentational component representing a single row in the coin list. Displays:
+
+- Market cap rank
+- Coin logo (lazy-loaded with blur effect) and ticker symbol
+- Current USD price (2 decimal places)
+- 24-hour price change percentage
+- Total 24-hour trading volume (visible on medium screens and above)
+- Market capitalization (visible on large screens and above)
+
+Applies a subtle scale animation on hover (`hover:scale-105`) for interactivity.
+
+### `src/components/CoinTable.jsx`
+
+A presentational component used within the Coin detail page. Renders a single table row containing price change percentage values across the following time windows:
+
+| Column | API Field |
+|---|---|
+| 1h | `price_change_percentage_1h_in_currency.usd` |
+| 24h | `price_change_percentage_24h_in_currency.usd` |
+| 7d | `price_change_percentage_7d_in_currency.usd` |
+| 14d | `price_change_percentage_14d_in_currency.usd` |
+| 30d | `price_change_percentage_30d_in_currency.usd` |
+| 1yr | `price_change_percentage_1y_in_currency.usd` |
+
+### `src/routes/Coin.jsx`
+
+The coin detail page. Responsibilities:
+
+- Reads the `:coinId` route parameter via React Router's `useParams` hook.
+- Constructs and fires an Axios GET request to `https://api.coingecko.com/api/v3/coins/{coinId}` on mount.
+- Stores the response in local state.
+- Renders four content cards:
+  1. **Header card** — Rank badge, coin logo, name, symbol, and current price.
+  2. **Price change table** — Renders `<CoinTable />` with historical percentage changes.
+  3. **Stats card** — 24-hour low/high, market cap, and circulating supply.
+  4. **About card** — HTML description sanitized with DOMPurify before rendering.
+
+---
+
+## Responsive Design
+
+The application is designed mobile-first and scaled up using Tailwind CSS responsive prefixes.
+
+| Breakpoint | Tailwind Prefix | Behavior |
+|---|---|---|
+| Mobile (< 768px) | (default) | Rank, symbol, price, and 24h change are shown. Volume and market cap columns are hidden. |
+| Medium (≥ 768px) | `md:` | Volume column becomes visible |
+| Large (≥ 1024px) | `lg:` | Market cap column becomes visible |
+
+The detail page uses a two-column grid layout (`sm:grid-cols-2`) on small screens and above for the statistics section.
+
+---
+
+## Security
+
+### HTML Sanitization
+
+Coin descriptions returned from the CoinGecko API may contain HTML tags. These are rendered using React's `dangerouslySetInnerHTML`. To prevent Cross-Site Scripting (XSS) attacks, all HTML content is passed through **DOMPurify** before being set on the DOM:
+
+```jsx
+dangerouslySetInnerHTML={{
+  __html: DOMPurify.sanitize(coin.description ? coin.description.en : "")
+}}
+```
+
+DOMPurify strips any script tags, event handlers, or other potentially malicious markup, leaving only safe presentational HTML.
+
+### CodeQL Static Analysis
+
+The repository is configured with GitHub's CodeQL workflow, which automatically scans the codebase for potential security vulnerabilities (such as injection flaws, insecure dependencies, and unsafe API usage) on every push to the main branch.
+
+### Dependency Updates
+
+Dependencies are kept up to date automatically via **Dependabot**, configured to check for npm package updates monthly. Patch and minor version updates are auto-merged by the repository's GitHub Actions workflow to ensure the project stays current with security patches without manual intervention. Major version updates are auto-closed and require manual review.
+
+---
+
+## Dependency Management
+
+This project uses **Dependabot** for automated dependency maintenance. The configuration is defined in `.github/dependabot.yml`.
+
+**Update schedule:** Monthly
+
+**Auto-merge policy (`.github/workflows/automerge.yml`):**
+- Patch updates (e.g., `1.0.0` → `1.0.1`): Auto-approved and merged.
+- Minor updates (e.g., `1.0.0` → `1.1.0`): Auto-approved and merged.
+- Major updates (e.g., `1.0.0` → `2.0.0`): PR is automatically closed. Manual review is required before upgrading major versions due to potential breaking changes.
+
+---
 
 ## Contributing
 
-Contributions are welcome! If you'd like to contribute to the cryptocurrency-list project, please follow these guidelines:
+Contributions are welcome. Whether you are fixing a bug, improving accessibility, adding a feature, or improving documentation, please follow the guidelines below to ensure a smooth review process.
 
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Make the necessary changes and commit them.
-4. Push your branch to your forked repository.
-5. Submit a pull request to the `main` branch of the original repository.
+### Workflow
 
-Please ensure that your code follows the project's coding style and conventions.
+1. **Fork** the repository to your own GitHub account.
+
+2. **Clone** your fork locally:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/cryptocurrency-list.git
+   cd cryptocurrency-list
+   ```
+
+3. **Create a new branch** for your changes. Use a descriptive branch name that reflects the nature of your work:
+   ```bash
+   git checkout -b feature/add-search-filter
+   # or
+   git checkout -b fix/coin-image-loading
+   ```
+
+4. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+5. **Make your changes.** Keep changes focused and scoped to a single concern per branch.
+
+6. **Test your changes** by running the development server and manually verifying behavior:
+   ```bash
+   npm start
+   ```
+
+7. **Run the test suite** to ensure no regressions:
+   ```bash
+   npm test
+   ```
+
+8. **Commit your changes** with a clear, descriptive commit message:
+   ```bash
+   git add .
+   git commit -m "feat: add search filter to coin list"
+   ```
+
+9. **Push your branch** to your fork:
+   ```bash
+   git push origin feature/add-search-filter
+   ```
+
+10. **Open a pull request** against the `main` branch of the original repository. Provide a clear description of what was changed and why.
+
+### Code Style Guidelines
+
+- Use functional React components with hooks. Avoid class components.
+- Keep components focused on a single responsibility.
+- Use Tailwind CSS utility classes for styling. Avoid writing custom CSS unless strictly necessary.
+- All user-facing HTML content from external sources must be sanitized with DOMPurify before rendering.
+- Avoid introducing new dependencies without strong justification. If a dependency is needed, explain the rationale in your pull request.
+- Do not commit the `build/` directory or any `.env` files.
+
+---
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of this software, subject to the conditions stated in the license file.
