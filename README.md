@@ -40,9 +40,10 @@ The project is intentionally lightweight — no backend, no database, no authent
 
 ## Tech Stack
 
-| Technology | Version | Purpose |
+| Technology | Purpose |
 | --- | --- |
-| [React](https://react.dev/) UI component framework |
+
+| [React](https://react.dev/) | UI component framework |
 
 | [React Router DOM](https://reactrouter.com/) | Client-side routing |
 
