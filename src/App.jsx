@@ -15,11 +15,27 @@ function App() {
   const url =
     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false";
 
+  const CACHE_KEY = "coingecko-markets";
+  const CACHE_TTL = 5 * 60 * 1000;
+
   useEffect(() => {
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) {
+      const { data, timestamp } = JSON.parse(cached);
+      if (Date.now() - timestamp < CACHE_TTL) {
+        setCoins(data);
+        return;
+      }
+    }
+
     axios
       .get(url)
       .then((response) => {
         setCoins(response.data);
+        localStorage.setItem(
+          CACHE_KEY,
+          JSON.stringify({ data: response.data, timestamp: Date.now() })
+        );
       })
       .catch((error) => {
         console.log(error);

@@ -28,22 +28,42 @@ const styles = {
   thTd: "p-2 text-center border-x-2	border-solid	border-zinc-700 text-xs",
 };
 
+const CACHE_TTL = 5 * 60 * 1000;
+
 const Coin = () => {
   const params = useParams();
   const [coin, setCoin] = useState({});
 
   const url = `https://api.coingecko.com/api/v3/coins/${params.coinId}`;
 
+  const CACHE_KEY = `coingecko-coin-${params.coinId}`;
+
   useEffect(() => {
+    const cached = localStorage.getItem(CACHE_KEY);
+
+    if (cached) {
+      const { data, timestamp } = JSON.parse(cached);
+
+      if (Date.now() - timestamp < CACHE_TTL) {
+        setCoin(data);
+        return;
+      }
+    }
+
     axios
       .get(url)
       .then((res) => {
         setCoin(res.data);
+
+        localStorage.setItem(
+          CACHE_KEY,
+          JSON.stringify({ data: res.data, timestamp: Date.now() }),
+        );
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [url]);
+  }, [url, CACHE_KEY]);
 
   return (
     <div className="coin-container">
@@ -137,7 +157,8 @@ const Coin = () => {
               <h4>Circulating Supply</h4>
               {coin.market_data ? (
                 <p className={styles.statsRowParagraph}>
-                  {coin.market_data.circulating_supply?.toLocaleString() ?? "N/A"}
+                  {coin.market_data.circulating_supply?.toLocaleString() ??
+                    "N/A"}
                 </p>
               ) : null}
             </div>
@@ -151,7 +172,7 @@ const Coin = () => {
           <p
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(
-                coin.description ? coin.description.en : ""
+                coin.description ? coin.description.en : "",
               ),
             }}
           ></p>
