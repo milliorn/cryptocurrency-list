@@ -16,7 +16,7 @@ const styles = {
   h3: "my-4 mx-0",
   img: "h-12	mr-2",
   info: "grid grid-cols-2",
-  infoParagrah: "pr-4",
+  infoParagraph: "pr-4",
   rank: "my-2 mx-0",
   rankBtn:
     "bg-slate-600 border-2	border-slate-600 border-solid	rounded-lg	shadow-md	shadow-slate-600 p-1",
@@ -111,9 +111,9 @@ const Coin = () => {
                 />
               </div>
             ) : null}
-            <p className={styles.infoParagrah}>{coin.name}</p>
+            <p className={styles.infoParagraph}>{coin.name}</p>
             {coin.symbol ? (
-              <p className={styles.infoParagrah}>
+              <p className={styles.infoParagraph}>
                 {coin.symbol.toUpperCase()}/USD
               </p>
             ) : null}
