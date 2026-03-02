@@ -65,6 +65,7 @@ function App() {
             <div>
               <p role="alert">{error}</p>
               <button
+                className="mt-2 bg-slate-600 border-2 border-slate-600 border-solid rounded-lg shadow-md shadow-slate-600 px-3 py-1 hover:bg-slate-500"
                 onClick={() => {
                   setError(null);
                   setLoading(true);

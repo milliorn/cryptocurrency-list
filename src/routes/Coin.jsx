@@ -20,6 +20,8 @@ const styles = {
   rank: "my-2 mx-0",
   rankBtn:
     "bg-slate-600 border-2	border-slate-600 border-solid	rounded-lg	shadow-md	shadow-slate-600 p-1",
+  retryBtn:
+    "mt-2 bg-slate-600 border-2 border-slate-600 border-solid rounded-lg shadow-md shadow-slate-600 px-3 py-1 hover:bg-slate-500",
   row: "flex justify-between my-2 mx-0 pb-2 border-b-2	border-solid	border-zinc-500",
   stats: "sm:grid gap-8	sm:grid-cols-2 w-full",
   statsRowParagraph: "text-neutral-300",
@@ -81,6 +83,7 @@ const Coin = () => {
       <div>
         <p role="alert">{error}</p>
         <button
+          className={styles.retryBtn}
           onClick={() => {
             setError(null);
             setLoading(true);
