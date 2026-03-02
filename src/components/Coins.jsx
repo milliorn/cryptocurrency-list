@@ -9,7 +9,7 @@ const styles = {
   hidden2: "hidden lg:contents",
 };
 
-const Coins = (props) => (
+const Coins = ({ coins = [] }) => (
   <div className="coins-container m-auto">
     <div className={styles.heading}>
       <p>#</p>
@@ -22,7 +22,7 @@ const Coins = (props) => (
       </div>
     </div>
 
-    {props.coins.map((coins) => {
+    {coins.map((coins) => {
       return (
         <Link to={`/coin/${coins.id}`} key={coins.id}>
           <CoinItem coins={coins} />
