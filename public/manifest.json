@@ -7,9 +7,7 @@
   "short_name": "Crypto",
   "start_url": "/cryptocurrency-list/",
   "theme_color": "#000000",
-  "categories": [
-    "finance"
-  ],
+  "categories": ["finance"],
   "icons": [
     {
       "src": "favicon.ico",

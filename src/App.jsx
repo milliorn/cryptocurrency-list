@@ -51,7 +51,10 @@ function App() {
           <p>{error}</p>
         ) : (
           <Routes>
-            <Route path="/cryptocurrency-list" element={<Coins coins={coins} />} />
+            <Route
+              path="/cryptocurrency-list"
+              element={<Coins coins={coins} />}
+            />
             <Route path="/coin" element={<Coin />}>
               <Route path=":coinId" element={<Coin />} />
             </Route>

@@ -58,7 +58,7 @@ const Coin = () => {
 
         localStorage.setItem(
           CACHE_KEY,
-          JSON.stringify({ data: res.data, timestamp: Date.now() }),
+          JSON.stringify({ data: res.data, timestamp: Date.now() })
         );
       })
       .catch((error) => {
@@ -176,7 +176,7 @@ const Coin = () => {
           <p
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(
-                coin.description ? coin.description.en : "",
+                coin.description ? coin.description.en : ""
               ),
             }}
           ></p>
