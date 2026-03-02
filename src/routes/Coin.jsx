@@ -69,7 +69,7 @@ const Coin = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         setError("Failed to load coin data. Please try again later.");
         setLoading(false);
       });
