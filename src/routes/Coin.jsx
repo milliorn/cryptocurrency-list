@@ -137,7 +137,7 @@ const Coin = () => {
               <h4>Circulating Supply</h4>
               {coin.market_data ? (
                 <p className={styles.statsRowParagraph}>
-                  ${coin.market_data.circulating_supply?.toLocaleString() ?? "N/A"}
+                  {coin.market_data.circulating_supply?.toLocaleString() ?? "N/A"}
                 </p>
               ) : null}
             </div>
