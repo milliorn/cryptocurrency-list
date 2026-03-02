@@ -75,11 +75,11 @@ const Coin = () => {
       });
   }, [url, CACHE_KEY, retryCount]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p role="status">Loading...</p>;
   if (error)
     return (
       <div>
-        <p>{error}</p>
+        <p role="alert">{error}</p>
         <button
           onClick={() => {
             setError(null);

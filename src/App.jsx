@@ -58,10 +58,10 @@ function App() {
       <Navbar />
       <main>
         {loading ? (
-          <p>Loading...</p>
+          <p role="status">Loading...</p>
         ) : error ? (
           <div>
-            <p>{error}</p>
+            <p role="alert">{error}</p>
             <button
               onClick={() => {
                 setError(null);
