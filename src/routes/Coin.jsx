@@ -7,7 +7,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useParams } from "react-router-dom";
 
 import CoinTable from "../components/CoinTable";
-import { CACHE_TTL } from "../constants";
+import { CACHE_TTL, COINGECKO_BASE_URL } from "../constants";
 
 const styles = {
   coinHeading: "items-center flex my-4 mx-0",
@@ -45,7 +45,7 @@ const Coin = () => {
       return;
     }
 
-    const url = `https://api.coingecko.com/api/v3/coins/${params.coinId}`;
+    const url = `${COINGECKO_BASE_URL}/coins/${params.coinId}`;
     const CACHE_KEY = `coingecko-coin-${params.coinId}`;
 
     const cached = localStorage.getItem(CACHE_KEY);

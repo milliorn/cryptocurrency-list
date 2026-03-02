@@ -8,11 +8,10 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import Navbar from "./components/Navbar";
 
 import Coin from "./routes/Coin";
-import { CACHE_TTL } from "./constants";
+import { CACHE_TTL, COINGECKO_BASE_URL } from "./constants";
 
 const CACHE_KEY = "coingecko-markets";
-const URL =
-  "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false";
+const URL = `${COINGECKO_BASE_URL}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false`;
 
 function App() {
   const [coins, setCoins] = useState([]);
