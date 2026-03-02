@@ -16,13 +16,11 @@ const CoinItem = (props) => (
     <div className={styles.imgSymbol}>
       <div className={styles.img}>
         <LazyLoadImage
-          alt={props.coins.symbol.toLowerCase()}
+          alt={props.coins.symbol?.toLowerCase() ?? ""}
           className={styles.img}
           effect="blur"
-          height={props.coins.image.height}
-          placeholderSrc="../../public/logo192.png"
+          placeholderSrc={`${process.env.PUBLIC_URL}/logo192.png`}
           src={props.coins.image}
-          width={props.coins.image.width}
         />
       </div>
       <p>{props.coins.symbol.toUpperCase()}</p>
