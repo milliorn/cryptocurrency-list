@@ -33,6 +33,7 @@ const CACHE_TTL = 5 * 60 * 1000;
 const Coin = () => {
   const params = useParams();
   const [coin, setCoin] = useState({});
+  const [error, setError] = useState(null);
 
   const url = `https://api.coingecko.com/api/v3/coins/${params.coinId}`;
 
@@ -62,8 +63,11 @@ const Coin = () => {
       })
       .catch((error) => {
         console.log(error);
+        setError("Failed to load coin data. Please try again later.");
       });
   }, [url, CACHE_KEY]);
+
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="coin-container">
