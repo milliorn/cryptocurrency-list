@@ -8,15 +8,14 @@ import Navbar from "./components/Navbar";
 
 import Coin from "./routes/Coin";
 
+const CACHE_KEY = "coingecko-markets";
+const CACHE_TTL = 5 * 60 * 1000;
+const URL =
+  "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false";
+
 function App() {
   const [coins, setCoins] = useState([]);
   const styles = "container m-auto max-w-screen-2xl";
-
-  const url =
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false";
-
-  const CACHE_KEY = "coingecko-markets";
-  const CACHE_TTL = 5 * 60 * 1000;
 
   useEffect(() => {
     const cached = localStorage.getItem(CACHE_KEY);
@@ -29,7 +28,7 @@ function App() {
     }
 
     axios
-      .get(url)
+      .get(URL)
       .then((response) => {
         setCoins(response.data);
         localStorage.setItem(
