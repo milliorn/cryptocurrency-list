@@ -2,21 +2,23 @@ import axios from "axios";
 import DOMPurify from "dompurify";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useParams } from "react-router-dom";
 
 import CoinTable from "../components/CoinTable";
+import RetryButton from "../components/RetryButton";
+import { CACHE_TTL, COINGECKO_BASE_URL } from "../constants";
 
 const styles = {
   coinHeading: "items-center flex my-4 mx-0",
   coinPrice: "items-center flex justify-center",
   content:
     "bg-zinc-800 rounded-lg flex flex-col	my-4 mx-auto max-w-3xl py-3 px-1 shadow-2xl	shadow-zinc-900	",
-  h3: "my-4 mx-0",
+  heading: "my-4 mx-0",
   img: "h-12	mr-2",
   info: "grid grid-cols-2",
-  infoParagrah: "pr-4",
+  infoParagraph: "pr-4",
   rank: "my-2 mx-0",
   rankBtn:
     "bg-slate-600 border-2	border-slate-600 border-solid	rounded-lg	shadow-md	shadow-slate-600 p-1",
@@ -31,26 +33,87 @@ const styles = {
 const Coin = () => {
   const params = useParams();
   const [coin, setCoin] = useState({});
-
-  const url = `https://api.coingecko.com/api/v3/coins/${params.coinId}`;
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
+    if (!params.coinId) {
+      setError("No coin selected. Please go back and select a coin.");
+      setLoading(false);
+      return;
+    }
+
+    const url = `${COINGECKO_BASE_URL}/coins/${params.coinId}`;
+    const CACHE_KEY = `coingecko-coin-${params.coinId}`;
+
+    const cached = localStorage.getItem(CACHE_KEY);
+
+    if (cached) {
+      try {
+        const { data, timestamp } = JSON.parse(cached);
+
+        if (Date.now() - timestamp < CACHE_TTL) {
+          setCoin(data);
+          setLoading(false);
+          return;
+        }
+      } catch {
+        localStorage.removeItem(CACHE_KEY);
+      }
+    }
+
+    const controller = new AbortController();
+
     axios
-      .get(url)
+      .get(url, { signal: controller.signal })
       .then((res) => {
         setCoin(res.data);
+
+        try {
+          localStorage.setItem(
+            CACHE_KEY,
+            JSON.stringify({ data: res.data, timestamp: Date.now() })
+          );
+        } catch (e) {
+          console.warn("Cache write failed:", e.message);
+        }
+        setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        if (axios.isCancel(error)) return;
+
+        console.error(error);
+        setError("Failed to load coin data. Please try again later.");
+        setLoading(false);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
+    return () => controller.abort();
+  }, [params.coinId, retryCount]);
+
+  if (loading) return <p role="status">Loading...</p>;
+
+  if (error)
+    return (
+      <div>
+        <p role="alert">{error}</p>
+        <RetryButton
+          onClick={() => {
+            setError(null);
+            setLoading(true);
+            setRetryCount((c) => c + 1);
+          }}
+        />
+      </div>
+    );
 
   return (
     <div className="coin-container">
       <div className={styles.content}>
         <div className={styles.rank}>
-          <span className={styles.rankBtn}>Rank # {coin.market_cap_rank}</span>
+          <span className={styles.rankBtn}>
+            Rank # {coin.market_cap_rank ?? "N/A"}
+          </span>
         </div>
 
         <div className={styles.info}>
@@ -58,18 +121,16 @@ const Coin = () => {
             {coin.image ? (
               <div className={styles.img}>
                 <LazyLoadImage
-                  alt={coin.symbol.toLowerCase()}
+                  alt={coin.symbol?.toLowerCase() ?? ""}
                   effect="blur"
-                  height={coin.image.height}
-                  placeholderSrc="../../public/logo192.png"
+                  placeholderSrc={`${process.env.PUBLIC_URL}/logo192.png`}
                   src={coin.image.small}
-                  width={coin.image.width}
                 />
               </div>
             ) : null}
-            <p className={styles.infoParagrah}>{coin.name}</p>
+            <p className={styles.infoParagraph}>{coin.name}</p>
             {coin.symbol ? (
-              <p className={styles.infoParagrah}>
+              <p className={styles.infoParagraph}>
                 {coin.symbol.toUpperCase()}/USD
               </p>
             ) : null}
@@ -77,7 +138,7 @@ const Coin = () => {
 
           <div className={styles.coinPrice}>
             {coin.market_data?.current_price ? (
-              <h2 className={styles.h2}>
+              <h2 className={styles.heading}>
                 ${coin.market_data.current_price.usd.toLocaleString()}
               </h2>
             ) : null}
@@ -122,7 +183,7 @@ const Coin = () => {
                 <p className={styles.statsRowParagraph}>
                   ${coin.market_data.high_24h.usd.toLocaleString()}
                 </p>
-              ) : null}{" "}
+              ) : null}
             </div>
           </div>
 
@@ -140,7 +201,8 @@ const Coin = () => {
               <h4>Circulating Supply</h4>
               {coin.market_data ? (
                 <p className={styles.statsRowParagraph}>
-                  ${coin.market_data.circulating_supply.toLocaleString()}
+                  {coin.market_data.circulating_supply?.toLocaleString() ??
+                    "N/A"}
                 </p>
               ) : null}
             </div>
@@ -150,14 +212,12 @@ const Coin = () => {
 
       <div className={styles.content}>
         <div className="about">
-          <h3 className={styles.h3}>About</h3>
-          <p
+          <h3 className={styles.heading}>About</h3>
+          <div
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(
-                coin.description ? coin.description.en : ""
-              ),
+              __html: DOMPurify.sanitize(coin.description?.en ?? ""),
             }}
-          ></p>
+          ></div>
         </div>
       </div>
     </div>

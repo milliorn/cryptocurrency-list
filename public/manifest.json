@@ -3,35 +3,29 @@
   "background_color": "#000000",
   "description": "Cryptocurrency price tracker",
   "display": "standalone",
-  "name": "Crypto",
-  "short_name": "Crypto Watch",
-  "start_url": ".",
+  "name": "Crypto Watch",
+  "short_name": "Crypto",
+  "start_url": "/cryptocurrency-list/",
   "theme_color": "#000000",
-  "categories": [
-    "finance",
-    "cryptocurrency",
-    "bitcoin",
-    "ethereum",
-    "litecoin"
-  ],
+  "categories": ["finance"],
   "icons": [
     {
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon",
-      "purpose": "maskable"
+      "purpose": "any"
     },
     {
       "src": "android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "maskable any"
     },
     {
       "src": "android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "maskable any"
     },
     {
       "src": "apple-touch-icon.png",

@@ -1,41 +1,101 @@
 import axios from "axios";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Coins from "./components/Coins";
+import ErrorBoundary from "./components/ErrorBoundary";
 import Navbar from "./components/Navbar";
+import RetryButton from "./components/RetryButton";
 
 import Coin from "./routes/Coin";
+import { CACHE_TTL, COINGECKO_BASE_URL } from "./constants";
+
+const CACHE_KEY = "coingecko-markets";
+const URL = `${COINGECKO_BASE_URL}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false`;
 
 function App() {
   const [coins, setCoins] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [retryCount, setRetryCount] = useState(0);
   const styles = "container m-auto max-w-screen-2xl";
 
-  const url =
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false";
-
   useEffect(() => {
+    const cached = localStorage.getItem(CACHE_KEY);
+
+    if (cached) {
+      try {
+        const { data, timestamp } = JSON.parse(cached);
+
+        if (Date.now() - timestamp < CACHE_TTL) {
+          setCoins(data);
+          setLoading(false);
+          return;
+        }
+      } catch {
+        localStorage.removeItem(CACHE_KEY);
+      }
+    }
+
+    const controller = new AbortController();
+
     axios
-      .get(url)
+      .get(URL, { signal: controller.signal })
       .then((response) => {
         setCoins(response.data);
-        //console.log(response.data[0])
+        try {
+          localStorage.setItem(
+            CACHE_KEY,
+            JSON.stringify({ data: response.data, timestamp: Date.now() })
+          );
+        } catch (e) {
+          console.warn("Cache write failed:", e.message);
+        }
+        setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        if (axios.isCancel(error)) return;
+
+        console.error(error);
+        setError("Failed to load coin data. Please try again later.");
+        setLoading(false);
       });
-  }, []);
+
+    return () => controller.abort();
+  }, [retryCount]);
 
   return (
     <div className={styles}>
       <Navbar />
-      <Routes>
-        <Route path="/cryptocurrency-list" element={<Coins coins={coins} />} />
-        <Route path="/coin" element={<Coin />}>
-          <Route path=":coinId" element={<Coin />} />
-        </Route>
-      </Routes>
+      <main>
+        <ErrorBoundary>
+          {loading ? (
+            <p role="status">Loading...</p>
+          ) : error ? (
+            <div>
+              <p role="alert">{error}</p>
+              <RetryButton
+                onClick={() => {
+                  setError(null);
+                  setLoading(true);
+                  setRetryCount((c) => c + 1);
+                }}
+              />
+            </div>
+          ) : (
+            <Routes>
+              <Route
+                path="/cryptocurrency-list"
+                element={<Coins coins={coins} />}
+              />
+              <Route path="/coin" element={<Coin />}>
+                <Route path=":coinId" element={<Coin />} />
+              </Route>
+            </Routes>
+          )}
+        </ErrorBoundary>
+      </main>
     </div>
   );
 }

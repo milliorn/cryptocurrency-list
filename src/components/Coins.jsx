@@ -1,7 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-import Coin from "../routes/Coin";
 import CoinItem from "./CoinItem";
 
 const styles = {
@@ -11,7 +9,7 @@ const styles = {
   hidden2: "hidden lg:contents",
 };
 
-const Coins = (props) => (
+const Coins = ({ coins = [] }) => (
   <div className="coins-container m-auto">
     <div className={styles.heading}>
       <p>#</p>
@@ -24,13 +22,17 @@ const Coins = (props) => (
       </div>
     </div>
 
-    {props.coins.map((coins) => {
-      return (
-        <Link to={`/coin/${coins.id}`} element={<Coin />} key={coins.id}>
-          <CoinItem coins={coins} />
-        </Link>
-      );
-    })}
+    {coins.length === 0 ? (
+      <p className="text-center my-8">No coins to display.</p>
+    ) : (
+      coins.map((coin) => {
+        return (
+          <Link to={`/coin/${coin.id}`} key={coin.id}>
+            <CoinItem coin={coin} />
+          </Link>
+        );
+      })
+    )}
   </div>
 );
 

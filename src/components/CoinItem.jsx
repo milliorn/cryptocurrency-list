@@ -1,4 +1,3 @@
-import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
@@ -13,29 +12,27 @@ const styles = {
 
 const CoinItem = (props) => (
   <div className={styles.coinRow}>
-    <p>{props.coins.market_cap_rank}</p>
+    <p>{props.coin.market_cap_rank ?? "N/A"}</p>
     <div className={styles.imgSymbol}>
       <div className={styles.img}>
         <LazyLoadImage
-          alt={props.coins.symbol.toLowerCase()}
+          alt={props.coin.symbol?.toLowerCase() ?? ""}
           className={styles.img}
           effect="blur"
-          height={props.coins.image.height}
-          placeholderSrc="../../public/logo192.png"
-          src={props.coins.image}
-          width={props.coins.image.width}
+          placeholderSrc={`${process.env.PUBLIC_URL}/logo192.png`}
+          src={props.coin.image}
         />
       </div>
-      <p>{props.coins.symbol.toUpperCase()}</p>
+      <p>{props.coin.symbol?.toUpperCase() ?? "N/A"}</p>
     </div>
-    <p>{props.coins.current_price.toFixed(2)}</p>
-    <p>{props.coins.price_change_percentage_24h.toFixed(2)}%</p>
+    <p>{props.coin.current_price?.toFixed(2) ?? "N/A"}</p>
+    <p>{props.coin.price_change_percentage_24h?.toFixed(2) ?? "N/A"}%</p>
     <p className={styles.hidden1}>
-      {props.coins.total_volume.toLocaleString()}
+      {props.coin.total_volume?.toLocaleString() ?? "N/A"}
     </p>
     <div>
       <p className={styles.hidden2}>
-        {props.coins.market_cap.toLocaleString()}
+        {props.coin.market_cap?.toLocaleString() ?? "N/A"}
       </p>
     </div>
   </div>
