@@ -38,16 +38,15 @@ const Coin = () => {
   const [loading, setLoading] = useState(true);
   const [retryCount, setRetryCount] = useState(0);
 
-  const url = `https://api.coingecko.com/api/v3/coins/${params.coinId}`;
-
-  const CACHE_KEY = `coingecko-coin-${params.coinId}`;
-
   useEffect(() => {
     if (!params.coinId) {
       setError("No coin selected. Please go back and select a coin.");
       setLoading(false);
       return;
     }
+
+    const url = `https://api.coingecko.com/api/v3/coins/${params.coinId}`;
+    const CACHE_KEY = `coingecko-coin-${params.coinId}`;
 
     const cached = localStorage.getItem(CACHE_KEY);
 
@@ -80,7 +79,7 @@ const Coin = () => {
         setError("Failed to load coin data. Please try again later.");
         setLoading(false);
       });
-  }, [url, CACHE_KEY, retryCount, params.coinId]);
+  }, [params.coinId, retryCount]);
 
   if (loading) return <p role="status">Loading...</p>;
   if (error)
@@ -204,11 +203,11 @@ const Coin = () => {
       <div className={styles.content}>
         <div className="about">
           <h3 className={styles.heading}>About</h3>
-          <p
+          <div
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(coin.description?.en ?? ""),
             }}
-          ></p>
+          ></div>
         </div>
       </div>
     </div>

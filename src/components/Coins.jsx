@@ -28,7 +28,7 @@ const Coins = ({ coins = [] }) => (
       coins.map((coin) => {
         return (
           <Link to={`/coin/${coin.id}`} key={coin.id}>
-            <CoinItem coins={coin} />
+            <CoinItem coin={coin} />
           </Link>
         );
       })
