@@ -166,7 +166,7 @@ const Coin = () => {
                 <p className={styles.statsRowParagraph}>
                   ${coin.market_data.high_24h.usd.toLocaleString()}
                 </p>
-              ) : null}{" "}
+              ) : null}
             </div>
           </div>
 
