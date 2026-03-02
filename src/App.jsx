@@ -25,7 +25,7 @@ function App() {
     if (cached) {
       try {
         const { data, timestamp } = JSON.parse(cached);
-        
+
         if (Date.now() - timestamp < CACHE_TTL) {
           setCoins(data);
           setLoading(false);
