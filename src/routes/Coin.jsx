@@ -43,6 +43,12 @@ const Coin = () => {
   const CACHE_KEY = `coingecko-coin-${params.coinId}`;
 
   useEffect(() => {
+    if (!params.coinId) {
+      setError("No coin selected. Please go back and select a coin.");
+      setLoading(false);
+      return;
+    }
+
     const cached = localStorage.getItem(CACHE_KEY);
 
     if (cached) {
@@ -74,7 +80,7 @@ const Coin = () => {
         setError("Failed to load coin data. Please try again later.");
         setLoading(false);
       });
-  }, [url, CACHE_KEY, retryCount]);
+  }, [url, CACHE_KEY, retryCount, params.coinId]);
 
   if (loading) return <p role="status">Loading...</p>;
   if (error)
