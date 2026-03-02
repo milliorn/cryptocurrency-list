@@ -112,7 +112,7 @@ const Coin = () => {
     <div className="coin-container">
       <div className={styles.content}>
         <div className={styles.rank}>
-          <span className={styles.rankBtn}>Rank # {coin.market_cap_rank}</span>
+          <span className={styles.rankBtn}>Rank # {coin.market_cap_rank ?? "N/A"}</span>
         </div>
 
         <div className={styles.info}>
