@@ -29,7 +29,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"public/*.{html,json}\""
   },
   "eslintConfig": {
     "extends": [
