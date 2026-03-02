@@ -200,9 +200,7 @@ const Coin = () => {
           <h3 className={styles.heading}>About</h3>
           <p
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(
-                coin.description ? coin.description.en : ""
-              ),
+              __html: DOMPurify.sanitize(coin.description?.en ?? ""),
             }}
           ></p>
         </div>
