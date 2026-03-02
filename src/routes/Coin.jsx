@@ -53,6 +53,7 @@ const Coin = () => {
     if (cached) {
       try {
         const { data, timestamp } = JSON.parse(cached);
+
         if (Date.now() - timestamp < CACHE_TTL) {
           setCoin(data);
           setLoading(false);
@@ -82,6 +83,7 @@ const Coin = () => {
       })
       .catch((error) => {
         if (axios.isCancel(error)) return;
+
         console.error(error);
         setError("Failed to load coin data. Please try again later.");
         setLoading(false);
@@ -91,6 +93,7 @@ const Coin = () => {
   }, [params.coinId, retryCount]);
 
   if (loading) return <p role="status">Loading...</p>;
+
   if (error)
     return (
       <div>

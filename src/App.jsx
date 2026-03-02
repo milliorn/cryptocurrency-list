@@ -22,6 +22,7 @@ function App() {
 
   useEffect(() => {
     const cached = localStorage.getItem(CACHE_KEY);
+
     if (cached) {
       try {
         const { data, timestamp } = JSON.parse(cached);
@@ -54,6 +55,7 @@ function App() {
       })
       .catch((error) => {
         if (axios.isCancel(error)) return;
+
         console.error(error);
         setError("Failed to load coin data. Please try again later.");
         setLoading(false);
