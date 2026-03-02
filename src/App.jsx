@@ -15,6 +15,7 @@ const URL =
 
 function App() {
   const [coins, setCoins] = useState([]);
+  const [error, setError] = useState(null);
   const styles = "container m-auto max-w-screen-2xl";
 
   useEffect(() => {
@@ -38,6 +39,7 @@ function App() {
       })
       .catch((error) => {
         console.log(error);
+        setError("Failed to load coin data. Please try again later.");
       });
   }, []);
 
@@ -45,12 +47,16 @@ function App() {
     <div className={styles}>
       <Navbar />
       <main>
-        <Routes>
-          <Route path="/cryptocurrency-list" element={<Coins coins={coins} />} />
-          <Route path="/coin" element={<Coin />}>
-            <Route path=":coinId" element={<Coin />} />
-          </Route>
-        </Routes>
+        {error ? (
+          <p>{error}</p>
+        ) : (
+          <Routes>
+            <Route path="/cryptocurrency-list" element={<Coins coins={coins} />} />
+            <Route path="/coin" element={<Coin />}>
+              <Route path=":coinId" element={<Coin />} />
+            </Route>
+          </Routes>
+        )}
       </main>
     </div>
   );
