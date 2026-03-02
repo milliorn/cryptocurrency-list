@@ -35,6 +35,7 @@ const Coin = () => {
   const [coin, setCoin] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [retryCount, setRetryCount] = useState(0);
 
   const url = `https://api.coingecko.com/api/v3/coins/${params.coinId}`;
 
@@ -72,10 +73,24 @@ const Coin = () => {
         setError("Failed to load coin data. Please try again later.");
         setLoading(false);
       });
-  }, [url, CACHE_KEY]);
+  }, [url, CACHE_KEY, retryCount]);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (error)
+    return (
+      <div>
+        <p>{error}</p>
+        <button
+          onClick={() => {
+            setError(null);
+            setLoading(true);
+            setRetryCount((c) => c + 1);
+          }}
+        >
+          Retry
+        </button>
+      </div>
+    );
 
   return (
     <div className="coin-container">

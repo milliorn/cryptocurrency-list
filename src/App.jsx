@@ -17,6 +17,7 @@ function App() {
   const [coins, setCoins] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [retryCount, setRetryCount] = useState(0);
   const styles = "container m-auto max-w-screen-2xl";
 
   useEffect(() => {
@@ -50,7 +51,7 @@ function App() {
         setError("Failed to load coin data. Please try again later.");
         setLoading(false);
       });
-  }, []);
+  }, [retryCount]);
 
   return (
     <div className={styles}>
@@ -59,7 +60,18 @@ function App() {
         {loading ? (
           <p>Loading...</p>
         ) : error ? (
-          <p>{error}</p>
+          <div>
+            <p>{error}</p>
+            <button
+              onClick={() => {
+                setError(null);
+                setLoading(true);
+                setRetryCount((c) => c + 1);
+              }}
+            >
+              Retry
+            </button>
+          </div>
         ) : (
           <Routes>
             <Route
