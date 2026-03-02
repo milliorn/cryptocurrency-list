@@ -7,6 +7,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useParams } from "react-router-dom";
 
 import CoinTable from "../components/CoinTable";
+import { CACHE_TTL } from "../constants";
 
 const styles = {
   coinHeading: "items-center flex my-4 mx-0",
@@ -29,8 +30,6 @@ const styles = {
   tableRow: "bg-zinc-600",
   thTd: "p-2 text-center border-x-2	border-solid	border-zinc-700 text-xs",
 };
-
-const CACHE_TTL = 5 * 60 * 1000;
 
 const Coin = () => {
   const params = useParams();
