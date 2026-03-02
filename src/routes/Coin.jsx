@@ -63,22 +63,31 @@ const Coin = () => {
       }
     }
 
+    const controller = new AbortController();
+
     axios
-      .get(url)
+      .get(url, { signal: controller.signal })
       .then((res) => {
         setCoin(res.data);
 
-        localStorage.setItem(
-          CACHE_KEY,
-          JSON.stringify({ data: res.data, timestamp: Date.now() })
-        );
+        try {
+          localStorage.setItem(
+            CACHE_KEY,
+            JSON.stringify({ data: res.data, timestamp: Date.now() })
+          );
+        } catch (e) {
+          console.warn("Cache write failed:", e.message);
+        }
         setLoading(false);
       })
       .catch((error) => {
+        if (axios.isCancel(error)) return;
         console.error(error);
         setError("Failed to load coin data. Please try again later.");
         setLoading(false);
       });
+
+    return () => controller.abort();
   }, [params.coinId, retryCount]);
 
   if (loading) return <p role="status">Loading...</p>;
