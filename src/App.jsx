@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import Coins from "./components/Coins";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Navbar from "./components/Navbar";
+import RetryButton from "./components/RetryButton";
 
 import Coin from "./routes/Coin";
 import { CACHE_TTL, COINGECKO_BASE_URL } from "./constants";
@@ -74,16 +75,13 @@ function App() {
           ) : error ? (
             <div>
               <p role="alert">{error}</p>
-              <button
-                className="mt-2 bg-slate-600 border-2 border-slate-600 border-solid rounded-lg shadow-md shadow-slate-600 px-3 py-1 hover:bg-slate-500"
+              <RetryButton
                 onClick={() => {
                   setError(null);
                   setLoading(true);
                   setRetryCount((c) => c + 1);
                 }}
-              >
-                Retry
-              </button>
+              />
             </div>
           ) : (
             <Routes>
