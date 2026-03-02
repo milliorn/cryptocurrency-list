@@ -43,11 +43,14 @@ const Coin = () => {
     const cached = localStorage.getItem(CACHE_KEY);
 
     if (cached) {
-      const { data, timestamp } = JSON.parse(cached);
-
-      if (Date.now() - timestamp < CACHE_TTL) {
-        setCoin(data);
-        return;
+      try {
+        const { data, timestamp } = JSON.parse(cached);
+        if (Date.now() - timestamp < CACHE_TTL) {
+          setCoin(data);
+          return;
+        }
+      } catch {
+        localStorage.removeItem(CACHE_KEY);
       }
     }
 
