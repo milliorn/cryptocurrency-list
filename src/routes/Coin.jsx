@@ -2,7 +2,7 @@ import axios from "axios";
 import DOMPurify from "dompurify";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useParams } from "react-router-dom";
 
