@@ -22,13 +22,17 @@ const Coins = ({ coins = [] }) => (
       </div>
     </div>
 
-    {coins.map((coins) => {
-      return (
-        <Link to={`/coin/${coins.id}`} key={coins.id}>
-          <CoinItem coins={coins} />
-        </Link>
-      );
-    })}
+    {coins.length === 0 ? (
+      <p className="text-center my-8">No coins to display.</p>
+    ) : (
+      coins.map((coins) => {
+        return (
+          <Link to={`/coin/${coins.id}`} key={coins.id}>
+            <CoinItem coins={coins} />
+          </Link>
+        );
+      })
+    )}
   </div>
 );
 
