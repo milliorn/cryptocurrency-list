@@ -57,12 +57,10 @@ const Coin = () => {
             {coin.image ? (
               <div className={styles.img}>
                 <LazyLoadImage
-                  alt={coin.symbol.toLowerCase()}
+                  alt={coin.symbol?.toLowerCase() ?? ""}
                   effect="blur"
-                  height={coin.image.height}
-                  placeholderSrc="../../public/logo192.png"
+                  placeholderSrc={`${process.env.PUBLIC_URL}/logo192.png`}
                   src={coin.image.small}
-                  width={coin.image.width}
                 />
               </div>
             ) : null}
