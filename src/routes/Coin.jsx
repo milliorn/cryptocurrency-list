@@ -13,7 +13,7 @@ const styles = {
   coinPrice: "items-center flex justify-center",
   content:
     "bg-zinc-800 rounded-lg flex flex-col	my-4 mx-auto max-w-3xl py-3 px-1 shadow-2xl	shadow-zinc-900	",
-  h3: "my-4 mx-0",
+  heading: "my-4 mx-0",
   img: "h-12	mr-2",
   info: "grid grid-cols-2",
   infoParagraph: "pr-4",
@@ -121,7 +121,7 @@ const Coin = () => {
 
           <div className={styles.coinPrice}>
             {coin.market_data?.current_price ? (
-              <h2 className={styles.h3}>
+              <h2 className={styles.heading}>
                 ${coin.market_data.current_price.usd.toLocaleString()}
               </h2>
             ) : null}
@@ -195,7 +195,7 @@ const Coin = () => {
 
       <div className={styles.content}>
         <div className="about">
-          <h3 className={styles.h3}>About</h3>
+          <h3 className={styles.heading}>About</h3>
           <p
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(
