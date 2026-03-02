@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Coins from "./components/Coins";
+import ErrorBoundary from "./components/ErrorBoundary";
 import Navbar from "./components/Navbar";
 
 import Coin from "./routes/Coin";
@@ -57,32 +58,34 @@ function App() {
     <div className={styles}>
       <Navbar />
       <main>
-        {loading ? (
-          <p role="status">Loading...</p>
-        ) : error ? (
-          <div>
-            <p role="alert">{error}</p>
-            <button
-              onClick={() => {
-                setError(null);
-                setLoading(true);
-                setRetryCount((c) => c + 1);
-              }}
-            >
-              Retry
-            </button>
-          </div>
-        ) : (
-          <Routes>
-            <Route
-              path="/cryptocurrency-list"
-              element={<Coins coins={coins} />}
-            />
-            <Route path="/coin" element={<Coin />}>
-              <Route path=":coinId" element={<Coin />} />
-            </Route>
-          </Routes>
-        )}
+        <ErrorBoundary>
+          {loading ? (
+            <p role="status">Loading...</p>
+          ) : error ? (
+            <div>
+              <p role="alert">{error}</p>
+              <button
+                onClick={() => {
+                  setError(null);
+                  setLoading(true);
+                  setRetryCount((c) => c + 1);
+                }}
+              >
+                Retry
+              </button>
+            </div>
+          ) : (
+            <Routes>
+              <Route
+                path="/cryptocurrency-list"
+                element={<Coins coins={coins} />}
+              />
+              <Route path="/coin" element={<Coin />}>
+                <Route path=":coinId" element={<Coin />} />
+              </Route>
+            </Routes>
+          )}
+        </ErrorBoundary>
       </main>
     </div>
   );
