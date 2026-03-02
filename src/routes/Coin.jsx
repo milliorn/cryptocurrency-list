@@ -76,7 +76,7 @@ const Coin = () => {
 
           <div className={styles.coinPrice}>
             {coin.market_data?.current_price ? (
-              <h2 className={styles.h2}>
+              <h2 className={styles.h3}>
                 ${coin.market_data.current_price.usd.toLocaleString()}
               </h2>
             ) : null}
