@@ -46,11 +46,13 @@ const CoinTable = (props) => {
     ) : null,
   ];
 
+  const periods = ["1h", "24h", "7d", "14d", "30d", "1y"];
+
   return (
     <tr>
       {data.map((e, i) => (
         <td
-          key={i}
+          key={periods[i]}
           className="p-2 text-center border-x-2	border-solid	border-zinc-700 text-xs"
         >
           {e}
