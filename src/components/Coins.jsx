@@ -25,10 +25,10 @@ const Coins = ({ coins = [] }) => (
     {coins.length === 0 ? (
       <p className="text-center my-8">No coins to display.</p>
     ) : (
-      coins.map((coins) => {
+      coins.map((coin) => {
         return (
-          <Link to={`/coin/${coins.id}`} key={coins.id}>
-            <CoinItem coins={coins} />
+          <Link to={`/coin/${coin.id}`} key={coin.id}>
+            <CoinItem coins={coin} />
           </Link>
         );
       })
