@@ -28,14 +28,14 @@ const CoinItem = (props) => (
       </div>
       <p>{props.coins.symbol.toUpperCase()}</p>
     </div>
-    <p>{props.coins.current_price.toFixed(2)}</p>
-    <p>{props.coins.price_change_percentage_24h.toFixed(2)}%</p>
+    <p>{props.coins.current_price?.toFixed(2) ?? "N/A"}</p>
+    <p>{props.coins.price_change_percentage_24h?.toFixed(2) ?? "N/A"}%</p>
     <p className={styles.hidden1}>
-      {props.coins.total_volume.toLocaleString()}
+      {props.coins.total_volume?.toLocaleString() ?? "N/A"}
     </p>
     <div>
       <p className={styles.hidden2}>
-        {props.coins.market_cap.toLocaleString()}
+        {props.coins.market_cap?.toLocaleString() ?? "N/A"}
       </p>
     </div>
   </div>
