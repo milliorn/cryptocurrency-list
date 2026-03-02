@@ -34,6 +34,7 @@ const Coin = () => {
   const params = useParams();
   const [coin, setCoin] = useState({});
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const url = `https://api.coingecko.com/api/v3/coins/${params.coinId}`;
 
@@ -47,6 +48,7 @@ const Coin = () => {
         const { data, timestamp } = JSON.parse(cached);
         if (Date.now() - timestamp < CACHE_TTL) {
           setCoin(data);
+          setLoading(false);
           return;
         }
       } catch {
@@ -63,13 +65,16 @@ const Coin = () => {
           CACHE_KEY,
           JSON.stringify({ data: res.data, timestamp: Date.now() })
         );
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
         setError("Failed to load coin data. Please try again later.");
+        setLoading(false);
       });
   }, [url, CACHE_KEY]);
 
+  if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (

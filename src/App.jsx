@@ -16,6 +16,7 @@ const URL =
 function App() {
   const [coins, setCoins] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const styles = "container m-auto max-w-screen-2xl";
 
   useEffect(() => {
@@ -26,6 +27,7 @@ function App() {
         
         if (Date.now() - timestamp < CACHE_TTL) {
           setCoins(data);
+          setLoading(false);
           return;
         }
       } catch {
@@ -41,10 +43,12 @@ function App() {
           CACHE_KEY,
           JSON.stringify({ data: response.data, timestamp: Date.now() })
         );
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
         setError("Failed to load coin data. Please try again later.");
+        setLoading(false);
       });
   }, []);
 
@@ -52,7 +56,9 @@ function App() {
     <div className={styles}>
       <Navbar />
       <main>
-        {error ? (
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
           <p>{error}</p>
         ) : (
           <Routes>
