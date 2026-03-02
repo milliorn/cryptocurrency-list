@@ -23,7 +23,7 @@ const CoinItem = (props) => (
           src={props.coins.image}
         />
       </div>
-      <p>{props.coins.symbol.toUpperCase()}</p>
+      <p>{props.coins.symbol?.toUpperCase() ?? "N/A"}</p>
     </div>
     <p>{props.coins.current_price?.toFixed(2) ?? "N/A"}</p>
     <p>{props.coins.price_change_percentage_24h?.toFixed(2) ?? "N/A"}%</p>
