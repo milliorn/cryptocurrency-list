@@ -41,7 +41,7 @@ The project is intentionally lightweight — no backend, no database, no authent
 ## Tech Stack
 
 | Technology | Purpose |
-| --- | --- |
+| ---------- | ------- |
 
 | [React](https://react.dev/) | UI component framework |
 
@@ -187,10 +187,10 @@ This returns a much richer object including localized descriptions, full market 
 
 The app defines two routes in `App.jsx`:
 
-| Path | Component | Description |
-| --- | --- | --- |
-| `/cryptocurrency-list` | `Coins` | The main list of top 20 coins |
-| `/coin/:coinId` | `Coin` | Detail page for a specific coin, e.g. `/coin/bitcoin` |
+| Path                   | Component | Description                                           |
+| ---------------------- | --------- | ----------------------------------------------------- |
+| `/cryptocurrency-list` | `Coins`   | The main list of top 20 coins                         |
+| `/coin/:coinId`        | `Coin`    | Detail page for a specific coin, e.g. `/coin/bitcoin` |
 
 Navigating to the root (`/`) will not redirect automatically — you should land on `/cryptocurrency-list`. When deployed to GitHub Pages the `homepage` field in `package.json` ensures the asset paths resolve correctly under the `/cryptocurrency-list` sub-path.
 
@@ -202,13 +202,13 @@ Coin descriptions from the CoinGecko API contain HTML tags (links, emphasis, etc
 
 ## Available Scripts
 
-| Script | Command | Description |
-| --- | --- | --- |
-| Start dev server | `npm start` | Runs the app in development mode at `http://localhost:3000` |
-| Run tests | `npm test` | Launches the Jest test runner in interactive watch mode |
-| Production build | `npm run build` | Bundles the app for production into the `build/` directory |
-| Deploy | `npm run deploy` | Runs `npm run build` then pushes the `build/` directory to the `gh-pages` branch |
-| Eject | `npm run eject` | Permanently exposes the underlying Webpack/Babel/ESLint config — **this is irreversible** |
+| Script           | Command          | Description                                                                               |
+| ---------------- | ---------------- | ----------------------------------------------------------------------------------------- |
+| Start dev server | `npm start`      | Runs the app in development mode at `http://localhost:3000`                               |
+| Run tests        | `npm test`       | Launches the Jest test runner in interactive watch mode                                   |
+| Production build | `npm run build`  | Bundles the app for production into the `build/` directory                                |
+| Deploy           | `npm run deploy` | Runs `npm run build` then pushes the `build/` directory to the `gh-pages` branch          |
+| Eject            | `npm run eject`  | Permanently exposes the underlying Webpack/Babel/ESLint config — **this is irreversible** |
 
 > **Warning:** `npm run eject` copies all configuration files out of `react-scripts` and into your project. You lose the ability to receive future `react-scripts` updates through a single dependency upgrade. Only eject if you have a specific need that cannot be met through the existing configuration.
 
