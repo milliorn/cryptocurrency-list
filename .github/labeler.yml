@@ -1,0 +1,47 @@
+components:
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/components/**
+
+routes:
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/routes/**
+
+styles:
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/**/*.css
+          - tailwind.config.js
+          - postcss.config.js
+
+javascript:
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/**/*.js
+          - src/**/*.jsx
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "**/*.md"
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - package.json
+          - package-lock.json
+
+github_actions:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/workflows/**
+          - .github/dependabot.yml
+
+configuration:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .prettierrc
+          - tailwind.config.js
+          - postcss.config.js
+          - .gitignore
