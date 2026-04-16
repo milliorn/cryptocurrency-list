@@ -256,6 +256,23 @@ The `predeploy` hook in `package.json` ensures the build is always fresh before 
 
 ---
 
+## PR Labeling
+
+Pull requests are automatically labeled based on the files changed using [actions/labeler](https://github.com/actions/labeler). Labels are applied as follows:
+
+| Label | Paths |
+| ----- | ----- |
+| `components` | `src/components/**` |
+| `routes` | `src/routes/**` |
+| `styles` | CSS files, Tailwind, PostCSS config |
+| `javascript` | `src/**/*.{js,jsx}` |
+| `documentation` | `**/*.md` |
+| `dependencies` | `package.json`, `package-lock.json` |
+| `github_actions` | `.github/**` |
+| `configuration` | Prettier, Tailwind, PostCSS, `.gitignore` |
+
+---
+
 ## Contributing
 
 Contributions are welcome. To propose a change:
