@@ -22,7 +22,7 @@
     "postcss": "8.5.10",
     "postcss-importer": "^1.0.1",
     "postcss-loader": "^8.2.1",
-    "prettier": "^3.8.1"
+    "prettier": "^3.8.3"
   },
   "scripts": {
     "start": "react-scripts start",
