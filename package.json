@@ -5,7 +5,7 @@
   "homepage": "https://milliorn.github.io/cryptocurrency-list",
   "dependencies": {
     "axios": "1.18.0",
-    "dompurify": "3.4.11",
+    "dompurify": "3.4.12",
     "react": "19.2.6",
     "react-dom": "19.2.7",
     "react-icons": "5.7.0",
@@ -19,7 +19,7 @@
     "autoprefixer": "^10.4.27",
     "eslint-config-prettier": "^10.1.8",
     "gh-pages": "6.3.0",
-    "postcss": "8.5.19",
+    "postcss": "8.5.20",
     "postcss-importer": "^1.0.1",
     "postcss-loader": "^8.2.1",
     "prettier": "^3.9.4"
