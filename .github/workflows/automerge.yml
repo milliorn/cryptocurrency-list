@@ -33,7 +33,10 @@ jobs:
     if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
     env:
       PR_URL: ${{ github.event.pull_request.html_url }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # A PAT, not GITHUB_TOKEN: merges performed with GITHUB_TOKEN don't
+      # trigger other workflows (GitHub's anti-recursion protection), which
+      # silently broke dependabot-rebase-cascade.yml's closed-PR trigger.
+      GITHUB_TOKEN: ${{ secrets.DEPENDABOT_REBASE_PAT }}
 
     steps:
       - name: Dependabot metadata
