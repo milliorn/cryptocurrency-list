@@ -1,22 +1,12 @@
 name: Dependabot reviewer
 
 # Fires whenever Dependabot opens, updates, or reopens a PR targeting main.
-# This workflow only approves or closes — it never merges. The actual merge
-# happens in dependabot-merge.yml, triggered after Merge Gatekeeper concludes.
-# Two reasons it's split out that way instead of merging here:
+# Approves and queues the merge (--auto, so required checks like
+# dependency-review and Merge Gatekeeper must still pass first).
 #
-# 1. Deadlock: Merge Gatekeeper waits for every other check on the commit,
-#    including this workflow's own "review-dependabot-pr" job, before it can
-#    report success. If this job blocked waiting for Merge Gatekeeper (e.g. via
-#    `gh pr checks --watch`), neither would ever finish.
-# 2. Merges must authenticate as DEPENDABOT_REBASE_PAT (a PAT), not the default
-#    GITHUB_TOKEN — GitHub Actions never lets an event produced by GITHUB_TOKEN
-#    trigger another workflow run (anti-recursion protection), so a merge done
-#    with GITHUB_TOKEN can never fire dependabot-rebase-cascade.yml's
-#    pull_request_target:closed trigger, and stale sibling PRs never get
-#    rebased. A PAT-authenticated merge is a normal event and triggers it
-#    correctly. (Approving here still uses the PAT for the same reason, even
-#    though only the merge step's identity actually matters for the cascade.)
+# Merges authenticate as DEPENDABOT_REBASE_PAT (a PAT), not GITHUB_TOKEN,
+# so the merge event correctly triggers dependabot-rebase-cascade.yml's
+# pull_request_target:closed trigger and stale sibling PRs get rebased.
 on:
   pull_request_target:
     types: [opened, synchronize, reopened]
@@ -28,11 +18,13 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
   cancel-in-progress: false
 
-# Read-only for GITHUB_TOKEN: it's only used by fetch-metadata now. The gh CLI
-# calls below authenticate as GH_TOKEN (the DEPENDABOT_REBASE_PAT) instead.
+# Minimum permissions needed for GITHUB_TOKEN (used by fetch-metadata):
+# - pull-requests: approve and comment on PRs
+# - contents: enable auto-merge (writes to the merge queue)
+# The gh CLI calls below authenticate as GH_TOKEN (DEPENDABOT_REBASE_PAT) instead.
 permissions:
-  pull-requests: read
-  contents: read
+  pull-requests: write
+  contents: write
 
 env:
   # Opt into Node.js 24 now ahead of the June 2, 2026 forced migration.
@@ -70,12 +62,13 @@ jobs:
             echo "action=deny" >> "$GITHUB_OUTPUT"
           fi
 
-      # Approve only. dependabot-merge.yml does the actual merge once Merge
-      # Gatekeeper concludes success — see the note at the top of this file.
-      - name: Allow — approve
+      # --auto queues the merge so all required branch protection checks must
+      # pass first (e.g. dependency-review, Merge Gatekeeper) before it merges.
+      - name: Allow — approve and merge
         if: steps.decision.outputs.action == 'allow'
         run: |
           gh pr review "$PR_URL" --approve -b "Auto-approved: **${{ steps.metadata.outputs.update-type }}** ${{ steps.metadata.outputs.package-ecosystem }} update."
+          gh pr merge "$PR_URL" --squash --auto
 
       - name: Deny — unexpected update
         if: steps.decision.outputs.action == 'deny'

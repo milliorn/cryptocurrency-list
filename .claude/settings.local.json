@@ -1,0 +1,9 @@
+{
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "deny": ["Bash(git add*)", "Bash(git commit*)", "Bash(git push*)", "Bash(gh run rerun*)", "Bash(gh pr merge*)", "Bash(git checkout -b*)", "Bash(git checkout -B*)", "Bash(git switch -c*)", "Bash(git switch -C*)", "Bash(git switch --create*)"]
+  }
+}
